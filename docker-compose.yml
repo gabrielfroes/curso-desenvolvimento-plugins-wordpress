@@ -1,0 +1,46 @@
+version: '3.1'
+
+services:
+
+    wordpress:
+        build: .
+        restart: always
+        ports:
+            - 8080:80
+        environment:
+            WORDPRESS_DB_HOST: db
+            WORDPRESS_DB_USER: wpuser
+            WORDPRESS_DB_PASSWORD: wppass
+            WORDPRESS_DB_NAME: wpdb
+        volumes:
+            - ./src/:/var/www/html/wp-content/plugins/my_youtube_recomendation
+
+    db:
+        image: mysql:5.7
+        restart: always
+        environment:
+            MYSQL_DATABASE: wpdb
+            MYSQL_USER: wpuser
+            MYSQL_PASSWORD: wppass
+            MYSQL_RANDOM_ROOT_PASSWORD: '1'
+        volumes:
+            - db:/var/lib/mysql
+
+    phpmyadmin:
+        depends_on:
+            - db
+        image: phpmyadmin/phpmyadmin
+        restart: always
+        ports:
+            - 8888:80
+        environment:
+            PMA_HOST: wpdb
+            MYSQL_ROOT_PASSWORD: wppass
+        networks:
+            - back
+
+networks:
+    back:
+        
+volumes:
+    db:
