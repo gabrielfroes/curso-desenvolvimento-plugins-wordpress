@@ -76,7 +76,7 @@ function my_youtube_recomendation_build_list($videos){
     $css   = '
     <style>
 
-        #my-yt-rec{
+        .my-yt-rec{
             display: flex;
             flex-wrap: wrap;
             height: 550px;
@@ -84,7 +84,7 @@ function my_youtube_recomendation_build_list($videos){
             overflow: auto;
         }
 
-        #my-yt-rec div{
+        .my-yt-rec div{
             max-width:360px;
             margin:10px;
         }
@@ -99,7 +99,7 @@ function my_youtube_recomendation_build_list($videos){
             left: 0;
         }
 
-        #my-yt-rec h3{
+        .my-yt-rec h3{
             color: #606060;
             font-size:10pt;
             font-weight: 500;
@@ -124,7 +124,7 @@ function my_youtube_recomendation_build_list($videos){
     $list  = '<!-- my-youtube-recomendation -->';
     $list .= $title ;
     $list .= $css;
-    $list .= '<div id="my-yt-rec">';
+    $list .= '<div class="my-yt-rec">';
     foreach ($videos as &$video) {
         $list .= "<div><a href='{$video['link']}' target='_blank' title='{$video['title']}'><img src='{$video['thumbnail']}' class='my-yt-rec-thumbnail'><h3>{$video['title']}</h3></a><br>{$video['views']} views</div>";
     }
