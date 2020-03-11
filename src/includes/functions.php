@@ -113,7 +113,6 @@ function my_youtube_recomendation_build_list($videos){
             white-space: nowrap;
             text-overflow: ellipsis;
             width: 100%;
-
         }
 
     </style>';

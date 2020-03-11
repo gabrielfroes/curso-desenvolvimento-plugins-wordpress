@@ -25,7 +25,7 @@ if ( ! defined( 'MY_YOUTUBE_RECOMENDATION_PLUGIN_DIR' ) ) {
 
 if (!function_exists('my_youtube_recomendation_init')){
 
-   require_once MY_YOUTUBE_RECOMENDATION_PLUGIN_DIR . 'functions.php';
+   require_once MY_YOUTUBE_RECOMENDATION_PLUGIN_DIR . 'includes/functions.php';
 
     function my_youtube_recomendation_init($content){
         if (is_single()) {  
