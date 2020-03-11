@@ -15,7 +15,7 @@ if (!defined('ABSPATH')){
 
 // Plugin Slug
 if ( ! defined( 'MY_YOUTUBE_RECOMENDATION_PLUGIN_SLUG' ) ) {
-	define( 'MY_YOUTUBE_RECOMENDATION_PLUGIN_SLUG', 'my_youtube_recomendation' );
+	define( 'MY_YOUTUBE_RECOMENDATION_PLUGIN_SLUG', 'my-youtube-recomendation' );
 }
 
 // Plugin Folder
