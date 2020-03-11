@@ -51,12 +51,17 @@ function my_youtube_recomendation_save_json_file($array){
 }
 
 function my_youtube_recomendation_fetch_videos(){
+
+    $file_expiration_in_hours = 1;
+
     // Check if json file exist and not expired
     $json_file = my_youtube_recomendation_get_json_path();
-    if ( file_exists($json_file) ){
+    $json_file_expired = (time()-filemtime($json_file) > ($file_expiration_in_hours * 3600));
+    if ( file_exists($json_file) && $json_file_expired == false ){
         $videos = my_youtube_recomendation_fetch_videos_from_json();
     } else {
         $videos = my_youtube_recomendation_fetch_videos_from_url();
+        my_youtube_recomendation_save_json_file($videos);
     }
     return $videos;
 }
