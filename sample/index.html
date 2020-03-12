@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videos Recomendation</title>
+    <style>
+        body {
+            background: #131313;
+            margin: 0;
+        }
+
+        .container {
+            margin: 0 auto;
+            width: 100%;
+            min-height: 500px;
+            padding: 10px;
+            background: #fff;
+
+        }
+
+        .my-yt-rec {
+            --my-yt-rec-max-item-width: 390px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: space-around;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #636363;
+        }
+
+        .my-yt-rec-item {
+            flex: 45% 45%;
+            max-width: var(--my-yt-rec-max-item-width);
+            min-width: 319px;
+            position: relative;
+            padding: 10px;
+        }
+
+        @media (min-width: 576px) {}
+
+        /* Medium devices (tablets, 768px and up) */
+        @media (min-width: 768px) {
+            .my-yt-rec {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .my-yt-rec-item {
+                flex: 0 35%;
+                max-width: 35%;
+            }
+        }
+
+        /* Large devices (desktops, 992px and up) */
+        @media (min-width: 992px) {}
+
+        /* Extra large devices (large desktops, 1200px and up) */
+        @media (min-width: 1200px) {
+            .my-yt-rec {
+                flex-direction: row;
+                flex-wrap: wrap;
+
+            }
+
+            .my-yt-rec-item {
+                flex: 0 0 25%;
+                max-width: var(--my-yt-rec-max-item-width);
+            }
+        }
+
+        .my-yt-rec a {
+            color: #636363;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .my-yt-rec-title {
+            white-space: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 10pt;
+            font-weight: bold;
+            margin-left: 50px;
+        }
+
+        .my-yt-rec-thumbnail {
+            transition: opacity 0.5s;
+            width: 100%;
+            min-width: 319px;
+            max-width: var(--my-yt-rec-max-item-width);
+            top: 0;
+            right: 0;
+            bottom: 10px;
+            left: 0;
+        }
+
+        .my-yt-rec-avatar {
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container"></div>
+
+    <script>
+        // READ JSON FROM SERVER
+        let url = 'http://localhost:5500/sample/videos.json';
+        fetch(url)
+            .then(res => res.json())
+            .then((out) => {
+                buildList(out);
+            })
+            .catch(err => {
+                throw err
+            });
+    </script>
+
+
+
+    <script>
+        function buildList(list) {
+
+            let theListTitle = document.createElement('h3');
+            let theList = document.createElement('div');
+
+            // Channel Info
+            let channelName = list['channel']['name'];
+            let channelLink = list['channel']['link'];
+            let channelAvatar = document.createElement('img');
+            channelAvatar.src = list['channel']['avatar'];
+            channelAvatar.className = 'my-yt-rec-avatar';
+
+            let channelElements = Array();
+            channelElements['name'] = channelName;
+            channelElements['link'] = channelLink;
+            channelElements['avatar'] = channelAvatar;
+
+            // Title
+            theListTitle.textContent = 'Meus Vídeos';
+
+            // Full List
+            theList.className = 'my-yt-rec'
+            //theList.appendChild(theListTitle);
+
+            for (let i = 0; i < list['videos'].length; i++) {
+                theList.appendChild(buildListItem(list['videos'][i], channelElements));
+            }
+            document.querySelector('.container').appendChild(theList);
+        }
+
+        function buildListItem(item, channel) {
+            let theItem = document.createElement('div');
+            let theTitle = document.createElement('p');
+            let theThumb = document.createElement('img');
+            let theThumbLink = document.createElement('a');
+            let theTitleLink;
+
+            // Links
+            theThumbLink.href = item.link;
+            theThumbLink.target = '_blank';
+            theThumbLink.title = item.title;
+            theTitleLink = theThumbLink.cloneNode();
+
+            // Title
+            theTitle.className = 'my-yt-rec-title';
+            theTitle.textContent = item.title;
+
+            // Thumb
+            theThumb.className = 'my-yt-rec-thumbnail';
+            theThumb.src = item.thumbnail;
+
+            theThumbLink.appendChild(theThumb);
+            theTitleLink.appendChild(theTitle)
+
+            // Item
+            theItem.className = "my-yt-rec-item";
+            theItem.appendChild(theThumbLink);
+            theItem.appendChild(channel['avatar'].cloneNode(true));
+            theItem.appendChild(theTitleLink);
+
+            return theItem;
+        }
+    </script>
+</body>
+
+</html>

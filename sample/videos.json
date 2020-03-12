@@ -1,0 +1,128 @@
+{
+    "channel": {
+        "name": "Código Fonte TV",
+        "uri": "https://www.youtube.com/channel/UCFuIUoyHB12qpYa8Jpxoxow",
+        "avatar": "https://yt3.ggpht.com/a/AATXAJxpQzXaz5gar8MXTTanUGvDI9UrI7xgLN_Elw=s100-c-k-c0xffffffff-no-rj-mo"
+    },
+    "videos": [{
+            "id": "snOXxJa31GI",
+            "link": "https://youtu.be/snOXxJa31GI",
+            "thumbnail": "https://img.youtube.com/vi/snOXxJa31GI/mqdefault.jpg",
+            "title": "ORM (A Ponte entre Orientação a Objetos e o Banco de Dados) // Dicionário do Programador",
+            "published": "2020-03-09T13:45:01+00:00",
+            "views": "5222"
+        },
+        {
+            "id": "yJTsA4hC_fw",
+            "link": "https://youtu.be/yJTsA4hC_fw",
+            "thumbnail": "https://img.youtube.com/vi/yJTsA4hC_fw/mqdefault.jpg",
+            "title": "Mulher + Tecnologia: Combinação Perfeita (Minha História - Vanessa Weber) // Vlog #114",
+            "published": "2020-03-08T14:00:10+00:00",
+            "views": "11851"
+        },
+        {
+            "id": "YfBWoZ30K_A",
+            "link": "https://youtu.be/YfBWoZ30K_A",
+            "thumbnail": "https://img.youtube.com/vi/YfBWoZ30K_A/mqdefault.jpg",
+            "title": "📢 Nossa Opinião: A CORRIDA PELOS DEVS (A Revista Exame foi Polêmica?) // Vlog #114",
+            "published": "2020-03-04T17:52:53+00:00",
+            "views": "35082"
+        },
+        {
+            "id": "HMEwYxXFTjM",
+            "link": "https://youtu.be/HMEwYxXFTjM",
+            "thumbnail": "https://img.youtube.com/vi/HMEwYxXFTjM/mqdefault.jpg",
+            "title": "Redis (O Banco de Dados em Memória mais Popular do Mundo) // Dicionário do Programador",
+            "published": "2020-03-02T14:00:04+00:00",
+            "views": "9684"
+        },
+        {
+            "id": "pGccuvDa7X4",
+            "link": "https://youtu.be/pGccuvDa7X4",
+            "thumbnail": "https://img.youtube.com/vi/pGccuvDa7X4/mqdefault.jpg",
+            "title": "Programação Profissional: Nosso Workflow usando Git e GitHub // Mão no Código #29",
+            "published": "2020-02-27T14:00:10+00:00",
+            "views": "13381"
+        },
+        {
+            "id": "GZV-FUdeVwE",
+            "link": "https://youtu.be/GZV-FUdeVwE",
+            "thumbnail": "https://img.youtube.com/vi/GZV-FUdeVwE/mqdefault.jpg",
+            "title": "CORS (Cross-Origin Resource Sharing em 6 minutos) // Dicionário do Programador",
+            "published": "2020-02-24T16:10:04+00:00",
+            "views": "8430"
+        },
+        {
+            "id": "Z2RnOofVDY0",
+            "link": "https://youtu.be/Z2RnOofVDY0",
+            "thumbnail": "https://img.youtube.com/vi/Z2RnOofVDY0/mqdefault.jpg",
+            "title": "Educação a Distância: Será que vou me adaptar? // Vlog #113",
+            "published": "2020-02-20T14:00:05+00:00",
+            "views": "7717"
+        },
+        {
+            "id": "rtuywS2fG2Y",
+            "link": "https://youtu.be/rtuywS2fG2Y",
+            "thumbnail": "https://img.youtube.com/vi/rtuywS2fG2Y/mqdefault.jpg",
+            "title": "Xamarin (o concorrente do Flutter e React Native) // Dicionário do Programador",
+            "published": "2020-02-17T13:45:00+00:00",
+            "views": "8860"
+        },
+        {
+            "id": "Vxl5jUltHBo",
+            "link": "https://youtu.be/Vxl5jUltHBo",
+            "thumbnail": "https://img.youtube.com/vi/Vxl5jUltHBo/mqdefault.jpg",
+            "title": "Python na Prática fazendo Web Scraping (de JavaScript dinâmico) // Mão no Código #28",
+            "published": "2020-02-13T14:00:09+00:00",
+            "views": "16592"
+        },
+        {
+            "id": "HOv9CqqAZk0",
+            "link": "https://youtu.be/HOv9CqqAZk0",
+            "thumbnail": "https://img.youtube.com/vi/HOv9CqqAZk0/mqdefault.jpg",
+            "title": "DOM (Document Object Model) // Dicionário do Programador",
+            "published": "2020-02-10T14:00:04+00:00",
+            "views": "6802"
+        },
+        {
+            "id": "6jQ0Q0T1f5c",
+            "link": "https://youtu.be/6jQ0Q0T1f5c",
+            "thumbnail": "https://img.youtube.com/vi/6jQ0Q0T1f5c/mqdefault.jpg",
+            "title": "Empreender no Brasil + Morar no Exterior // Entrevista com Robledo Ribeiro (CEO da HostGator Latam)",
+            "published": "2020-02-07T14:00:36+00:00",
+            "views": "3550"
+        },
+        {
+            "id": "3LDknWxVw7Y",
+            "link": "https://youtu.be/3LDknWxVw7Y",
+            "thumbnail": "https://img.youtube.com/vi/3LDknWxVw7Y/mqdefault.jpg",
+            "title": "PHP ou NodeJS? macOS ou Windows? Testes valem a pena? Como começar? // CAC #11",
+            "published": "2020-02-06T14:00:01+00:00",
+            "views": "17109"
+        },
+        {
+            "id": "z-RuvnMlw34",
+            "link": "https://youtu.be/z-RuvnMlw34",
+            "thumbnail": "https://img.youtube.com/vi/z-RuvnMlw34/mqdefault.jpg",
+            "title": "OAuth 2 // Dicionário do Programador",
+            "published": "2020-02-03T13:45:02+00:00",
+            "views": "9907"
+        },
+        {
+            "id": "Xzt7GbQIQTk",
+            "link": "https://youtu.be/Xzt7GbQIQTk",
+            "thumbnail": "https://img.youtube.com/vi/Xzt7GbQIQTk/mqdefault.jpg",
+            "title": "🚀 As TOP 7 Profissões de Tecnologia do Futuro (O PROGRAMADOR VAI ACABAR?) // Vlog #112",
+            "published": "2020-01-30T14:00:05+00:00",
+            "views": "29426"
+        },
+        {
+            "id": "BfjRYBN7Ur8",
+            "link": "https://youtu.be/BfjRYBN7Ur8",
+            "thumbnail": "https://img.youtube.com/vi/BfjRYBN7Ur8/mqdefault.jpg",
+            "title": "Kotlin // Dicionário do Programador",
+            "published": "2020-01-27T13:45:00+00:00",
+            "views": "8788"
+        }
+    ]
+}
