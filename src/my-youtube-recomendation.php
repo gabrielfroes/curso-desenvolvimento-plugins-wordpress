@@ -29,30 +29,40 @@ if (!function_exists('my_youtube_recomendation_init')){
 
     function my_youtube_recomendation_init($content){
         if (is_single()) {  
-            $list_videos = my_youtube_recomendation_fetch_videos();
-            $content .=  my_youtube_recomendation_build_list($list_videos);
+            //$list_videos = my_youtube_recomendation_fetch_videos();
+            $content .=  my_youtube_recomendation_build_list();
+            return $content;
         }
-        return $content;
+        
     }
 
 } // !function_exists
+
+if (!function_exists('my_youtube_recomendation_scripts')){
+
+    function my_youtube_recomendation_scripts() {
+        wp_enqueue_style( 'my-youtube-recomendation-style', plugin_dir_url( __FILE__ ) . 'assets/css/style.css' );
+        wp_enqueue_script( 'my-youtube-recomendation-scripts', plugin_dir_url( __FILE__ ) . 'assets/js/scripts.js', array( 'jquery' ), '', true);
+    }
+
+} // !function_exists
+
+if (!function_exists('my_youtube_recomendation_deactivate')){
+
+    function my_youtube_recomendation_deactivate() {
+        // TODO: remove json file from uploads folder
+        delete_option('my_youtube_recomendation_options');
+    }
+
+} // !function_exists
+
 
 
 // Filters
 add_filter( 'the_content', 'my_youtube_recomendation_init' );
 
 // Actions
+add_action( 'wp_enqueue_scripts', 'my_youtube_recomendation_scripts' );
 
-
-
-
-
-// // TODO: Chamada ajax - https://stackoverflow.com/questions/17855846/using-ajax-in-a-wordpress-plugin
-// add_action( 'wp_ajax_my_action', 'my_action' );
-// function my_action() {
-// 	global $wpdb;
-// 	$whatever = intval( $_POST['whatever'] );
-// 	$whatever += 10;
-//         echo $whatever;
-// 	wp_die();
-// }
+// Hook
+register_deactivation_hook( __FILE__, 'my_youtube_recomendation_deactivate');
