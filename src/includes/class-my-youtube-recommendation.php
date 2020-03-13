@@ -19,8 +19,12 @@ class My_Youtube_Recommendation {
 
 	private function load_dependencies() {
 
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-my_youtube_recommendation-loader.php';
-		// require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-plugin-name-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-my_youtube_recommendation-loader.php';
+		
+		if ( is_admin() ) {
+			// require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-plugin-name-admin.php';
+		}
+		
 		// require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-plugin-name-public.php';
 		$this->loader = new Plugin_Name_Loader();
 
