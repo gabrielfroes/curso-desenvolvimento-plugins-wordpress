@@ -66,13 +66,10 @@ if ( ! function_exists('my_youtube_recommendation_scripts') ){
 if ( ! function_exists('my_youtube_recommendation_deactivate') ){
 
     function my_youtube_recommendation_deactivate() {
-        // TODO: remove json file from uploads folder
         WP_Filesystem();
         global $wp_filesystem;
         $folder = my_youtube_recommendation_get_json_folder();
         $wp_filesystem->rmdir($folder, true);
-
-        // delete_option('my_youtube_recommendation_options');
     }
 
 } // !function_exists
@@ -85,5 +82,5 @@ add_filter( 'the_content', 'my_youtube_recommendation_init' );
 // Actions
 add_action( 'wp_enqueue_scripts', 'my_youtube_recommendation_scripts' );
 
-// Hook
+// Hooks
 register_deactivation_hook( __FILE__, 'my_youtube_recommendation_deactivate');
