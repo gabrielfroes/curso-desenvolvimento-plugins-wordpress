@@ -1,11 +1,10 @@
-jQuery.noConflict();
+let my_youtube_rec_container_id = "";
 
-jQuery(document).ready(function ($) {
-    console.log("%cMy Youtube Recommendation: Starting...", "background:green;color:white");
-    my_yt_rec_init();
-});
+function my_yt_rec_init(container_id) {
+    console.log(`%cMy Youtube Recommendation: Starting at '${container_id}'`, "background:green;color:white");
 
-function my_yt_rec_init() {
+    my_youtube_rec_container_id = container_id;
+
     let url = 'http://localhost:8080/wp-content/uploads/my-youtube-recommendation/videos.json';
     fetch(url)
         .then(res => res.json())
@@ -44,7 +43,7 @@ function buildList(list) {
     for (let i = 0; i < list['videos'].length; i++) {
         theList.appendChild(buildListItem(list['videos'][i], channelElements));
     }
-    document.querySelector('.my-yt-rec-container').appendChild(theList);
+    document.querySelector(`#${my_youtube_rec_container_id}`).appendChild(theList.cloneNode(true));
 }
 
 function buildListItem(item, channel) {

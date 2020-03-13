@@ -119,8 +119,15 @@ function my_youtube_recommendation_fetch_videos() {
 }
 
 function my_youtube_recommendation_build_list() {
-
-    $content .= "<div class='my-yt-rec-container'></div>";
-    return $content;
+    $container_id   = 'my-yt-rec-container';
+    $content        .= "<div id='$container_id'></div>";
+    $script         = "<script>
+                    (function ($) {
+                        $(function () {
+                            my_yt_rec_init('$container_id');
+                        });
+                    })(jQuery);
+                </script>";
+    return $content . $script;
 
 }
