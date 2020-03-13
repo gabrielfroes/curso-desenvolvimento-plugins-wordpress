@@ -27,6 +27,11 @@ if ( ! defined( 'MY_YOUTUBE_RECOMMENDATION_VERSION' ) ) {
     define( 'MY_YOUTUBE_RECOMMENDATION_VERSION', '1.0.0' );
 }
 
+// Plugin Name
+if ( ! defined( 'MY_YOUTUBE_RECOMMENDATION_NAME' ) ) {
+    define( 'MY_YOUTUBE_RECOMMENDATION_NAME', 'My Youtube Recommendation' );
+}
+
 // Plugin Slug
 if ( ! defined( 'MY_YOUTUBE_RECOMMENDATION_PLUGIN_SLUG' ) ) {
 	define( 'MY_YOUTUBE_RECOMMENDATION_PLUGIN_SLUG', 'my-youtube-recommendation' );
@@ -38,9 +43,11 @@ if ( ! defined( 'MY_YOUTUBE_RECOMMENDATION_PLUGIN_DIR' ) ) {
 }
 
 
-if ( ! function_exists('my_youtube_recommendation_init') ){
+// Dependecies
+require_once MY_YOUTUBE_RECOMMENDATION_PLUGIN_DIR . 'includes/functions.php';
+require_once MY_YOUTUBE_RECOMMENDATION_PLUGIN_DIR . 'includes/class-my-youtube-recommendation-widget.php';
 
-   require_once MY_YOUTUBE_RECOMMENDATION_PLUGIN_DIR . 'includes/functions.php';
+if ( ! function_exists('my_youtube_recommendation_init') ){
 
     function my_youtube_recommendation_init($content){
         if ( is_single() ) {  
