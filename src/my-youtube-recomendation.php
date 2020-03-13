@@ -1,16 +1,25 @@
 <?php
 /**
-* Plugin Name: My Youtube Recomendation
-* Description: Display the last videos from a Youtube channel using Youtube Feed and keep always updated even for cached posts.
-* Version: 1.0.0
-* Author: Gabriel Froes
-* Author URI: https://twitter.com/gabrielfroes
-* License: GPLv2 or later
-**/
+ * @link              http://www.github.com/gabrielfroes/my_youtube_recommendation
+ * @since             1.0.0
+ * @package           My_Youtube_Recommendation
+ *
+ * @wordpress-plugin
+ * Plugin Name:       My Youtube Recommendation
+ * Plugin URI:        http://www.github.com/gabrielfroes/my_youtube_recommendation
+ * Description:       Display the last videos from a Youtube channel using Youtube feed and keep always updated even for cached posts.
+ * Version:           1.0.0
+ * Author:            Gabriel Froes
+ * Author URI:        https://www.youtube.com/codigofontetv
+ * License:           GPL-2.0+
+ * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Text Domain:       my-youtube-recommendation
+ * Domain Path:       /languages
+ */
 
-// Sai se for acessado diretamente
-if ( ! defined('ABSPATH') ){
-	exit;
+ // If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
 }
 
 // Plugin Slug
@@ -42,8 +51,8 @@ if ( ! function_exists('my_youtube_recomendation_init') ){
 if ( ! function_exists('my_youtube_recomendation_scripts') ){
 
     function my_youtube_recomendation_scripts() {
-        wp_enqueue_style( 'my-youtube-recomendation-style', plugin_dir_url( __FILE__ ) . 'assets/css/style.css' );
-        wp_enqueue_script( 'my-youtube-recomendation-scripts', plugin_dir_url( __FILE__ ) . 'assets/js/scripts.js', array( 'jquery' ), '', true );
+        wp_enqueue_style( 'my-youtube-recomendation-style', plugin_dir_url( __FILE__ ) . 'public/css/style.css' );
+        wp_enqueue_script( 'my-youtube-recomendation-scripts', plugin_dir_url( __FILE__ ) . 'public/js/scripts.js', array( 'jquery' ), '', true );
     }
 
 } // !function_exists
