@@ -13,7 +13,7 @@ services:
             WORDPRESS_DB_PASSWORD: wppass
             WORDPRESS_DB_NAME: wpdb
         volumes:
-            - ./src/:/var/www/html/wp-content/plugins/my-youtube-recomendation
+            - ./src/:/var/www/html/wp-content/plugins/my-youtube-recommendation
 
     db:
         image: mysql:5.7
