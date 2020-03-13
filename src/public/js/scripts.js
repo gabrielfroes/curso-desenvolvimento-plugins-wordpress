@@ -1,18 +1,19 @@
 jQuery.noConflict();
 
 jQuery(document).ready(function ($) {
+    console.log("%cMy Youtube Recommendation: Starting...", "background:green;color:white");
     my_yt_rec_init();
 });
 
 function my_yt_rec_init() {
-    let url = 'http://localhost:8080/wp-content/uploads/my-youtube-recomendation/videos.json';
+    let url = 'http://localhost:8080/wp-content/uploads/my-youtube-recommendation/videos.json';
     fetch(url)
         .then(res => res.json())
         .then((out) => {
             buildList(out);
         })
         .catch(err => {
-            throw err
+            console.error("%cMy Youtube Recommendation Error: JSON File was not load.", "background:pink;color:red");
         });
 }
 
