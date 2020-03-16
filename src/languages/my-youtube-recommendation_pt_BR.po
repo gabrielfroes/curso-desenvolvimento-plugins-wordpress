@@ -1,0 +1,45 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Gabriel Fróes\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
+"X-Generator: Poedit 2.3\n"
+
+msgid "My Youtube Recommendation"
+msgstr "Minha recomendação do Youtube"
+
+msgid "Settings"
+msgstr "Configurações"
+
+msgid "Plugin Version"
+msgstr "Versão do Plugin"
+
+msgid "sample"
+msgstr "exemplo"
+
+msgid "Find here your channel Id"
+msgstr "Encontre aqui o ID do seu canal"
+
+msgid "Disable"
+msgstr "Desativado"
+
+msgid "After Post"
+msgstr "Depois da publicação"
+
+msgid "Before Post"
+msgstr "Antes da publicação"
+
+msgid "Max"
+msgstr "Máximo"
+
+msgid "Optional"
+msgstr "Opcional"
+
+msgid "Test here"
+msgstr "Teste aqui"
