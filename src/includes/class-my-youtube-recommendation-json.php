@@ -13,7 +13,6 @@ class My_Youtube_Recommendation_Json{
             $this->expiration = $expiration;
             $this->filename   = MY_YOUTUBE_RECOMMENDATION_JSON_FILENAME;
             $this->path       = $this->create_folder_path(); 
-
         }
 
         private function get_filename_full_path() {
@@ -128,11 +127,11 @@ class My_Youtube_Recommendation_Json{
         public function get_content() {
 
             if ( $this->is_expired() ){
-                echo ('FROM YOUTUBE FEED');
+                // echo ('FROM YOUTUBE FEED');
                 $json_content = $this->from_youtube_feed();
                 $this->save_file( $json_content );
             } else {
-                 echo ('FROM LOCAL JSON FILE');
+                //  echo ('FROM LOCAL JSON FILE');
                 $json_content = $this->from_file();
             }
 
@@ -140,13 +139,5 @@ class My_Youtube_Recommendation_Json{
 
         }
 
-}
-
-$channel_id = $my_yt_rec_plugin->options['channel_id'];
-if ( $channel_id != "" ){
-    $expiration = $my_yt_rec_plugin->options['cache_expiration'];
-    $my_yt_rec_json = new My_Youtube_Recommendation_Json( $channel_id, $expiration );
-   
-    $my_yt_rec_json->get_content() ;
 }
 
