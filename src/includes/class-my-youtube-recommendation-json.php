@@ -13,6 +13,12 @@ class My_Youtube_Recommendation_Json{
             $this->expiration = $expiration;
             $this->filename   = MY_YOUTUBE_RECOMMENDATION_JSON_FILENAME;
             $this->path       = $this->create_folder_path(); 
+
+            //Ajax
+            $ajax_action = 'my_youtube_recommendation_videos';
+			add_action( "wp_ajax_$ajax_action", array ( $this, 'write_content' ) );
+            add_action( "wp_ajax_nopriv_$ajax_action", array ( $this, 'write_content' ) );
+            
         }
 
         private function get_filename_full_path() {
@@ -31,6 +37,7 @@ class My_Youtube_Recommendation_Json{
                 }
                 return $dirname;
             }
+
         }
 
         private function from_youtube_feed() {
@@ -94,6 +101,7 @@ class My_Youtube_Recommendation_Json{
                 $avatar = $matches[1];
             }
             return $avatar;
+
         }
 
         private function from_file() {
@@ -137,6 +145,13 @@ class My_Youtube_Recommendation_Json{
 
             return $json_content;
 
+        }
+
+        public function write_content() {
+
+            echo $this->get_content();
+            wp_die();
+            
         }
 
 }

@@ -29,11 +29,11 @@ msgstr "Encontre aqui o ID do seu canal"
 msgid "Disable"
 msgstr "Desativado"
 
-msgid "After Post"
-msgstr "Depois da publicação"
+msgid "After"
+msgstr "Depois"
 
-msgid "Before Post"
-msgstr "Antes da publicação"
+msgid "Before"
+msgstr "Antes"
 
 msgid "Max"
 msgstr "Máximo"
@@ -41,5 +41,10 @@ msgstr "Máximo"
 msgid "Optional"
 msgstr "Opcional"
 
-msgid "Test here"
-msgstr "Teste aqui"
+msgid "Show in Posts"
+msgstr "Mostrar nas Publicações"
+
+msgid "Loading..."
+msgstr "Carregando..."
+
+

@@ -42,52 +42,25 @@ if ( ! defined( 'MY_YOUTUBE_RECOMMENDATION_PLUGIN_DIR' ) ) {
 	define( 'MY_YOUTUBE_RECOMMENDATION_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 }
 
+// JSON File Name
+if ( ! defined( 'MY_YOUTUBE_RECOMMENDATION_JSON_FILENAME' ) ) {
+	define( 'MY_YOUTUBE_RECOMMENDATION_JSON_FILENAME', 'my-yt-rec.json' );
+}
 
-// Dependecies
-require_once MY_YOUTUBE_RECOMMENDATION_PLUGIN_DIR . 'includes/functions.php';
+// Dependencies
+require_once MY_YOUTUBE_RECOMMENDATION_PLUGIN_DIR . 'includes/class-my-youtube-recommendation.php';
+require_once MY_YOUTUBE_RECOMMENDATION_PLUGIN_DIR . 'includes/class-my-youtube-recommendation-json.php';
 require_once MY_YOUTUBE_RECOMMENDATION_PLUGIN_DIR . 'includes/class-my-youtube-recommendation-widget.php';
 
-if ( ! function_exists('my_youtube_recommendation_init') ){
+if( is_admin() ) // Optional
+    require_once MY_YOUTUBE_RECOMMENDATION_PLUGIN_DIR . 'includes/class-my-youtube-recommendation-admin.php';
 
-    function my_youtube_recommendation_init($content){
-        if ( is_single() ) {  
-            $list_videos = my_youtube_recommendation_fetch_videos();
-            // my_youtube_recommendation_deactivate();
-            $content .=  my_youtube_recommendation_build_list();
-            return $content;
-        }
-        
-    }
+// Plugin Instance
+$my_yt_rec_plugin = new My_Youtube_Recommendation();
 
-} // !function_exists
-
-if ( ! function_exists('my_youtube_recommendation_scripts') ){
-
-    function my_youtube_recommendation_scripts() {
-        wp_enqueue_style( 'my-youtube-recommendation-style', plugin_dir_url( __FILE__ ) . 'public/css/style.css' );
-        wp_enqueue_script( 'my-youtube-recommendation-scripts', plugin_dir_url( __FILE__ ) . 'public/js/scripts.js', array( 'jquery' ), '', true );
-    }
-
-} // !function_exists
-
-if ( ! function_exists('my_youtube_recommendation_deactivate') ){
-
-    function my_youtube_recommendation_deactivate() {
-        WP_Filesystem();
-        global $wp_filesystem;
-        $folder = my_youtube_recommendation_get_json_folder();
-        $wp_filesystem->rmdir($folder, true);
-    }
-
-} // !function_exists
-
-
-
-// Filters
-add_filter( 'the_content', 'my_youtube_recommendation_init' );
-
-// Actions
-add_action( 'wp_enqueue_scripts', 'my_youtube_recommendation_scripts' );
-
-// Hooks
-register_deactivation_hook( __FILE__, 'my_youtube_recommendation_deactivate');
+$channel_id = $my_yt_rec_plugin->options['channel_id'];
+if ( $channel_id != "" ){
+    $expiration = $my_yt_rec_plugin->options['cache_expiration'];
+    $my_yt_rec_json = new My_Youtube_Recommendation_Json( $channel_id, $expiration );
+  
+}
