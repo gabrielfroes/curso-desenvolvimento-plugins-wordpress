@@ -17,16 +17,17 @@ class MyYoutubeRecommendation {
     }
 
     static buildList() {
-        let list = MyYoutubeRecommendation.data;
+
+        let myData = MyYoutubeRecommendation.data;
 
         let theListTitle = document.createElement('h3');
         let theList = document.createElement('div');
 
         // Channel Info
-        let channelName = list.channel.name;
-        let channelLink = list.channel.link;
+        let channelName = myData.channel.name;
+        let channelLink = myData.channel.link;
         let channelAvatar = document.createElement('img');
-        channelAvatar.src = list.channel.avatar;
+        channelAvatar.src = myData.channel.avatar;
         channelAvatar.className = 'my-yt-rec-avatar';
 
         let channelElements = Array();
@@ -41,8 +42,9 @@ class MyYoutubeRecommendation {
         theList.className = 'my-yt-rec'
         //theList.appendChild(theListTitle);
 
-        for (let i = 0; i < list.videos.length; i++) {
-            theList.appendChild(MyYoutubeRecommendation.buildListItem(list.videos[i], channelElements));
+        myData.videos.slice(0, 3);
+        for (let i = 0; i < myData.videos.length; i++) {
+            theList.appendChild(MyYoutubeRecommendation.buildListItem(myData.videos[i], channelElements));
         }
 
         let container = document.querySelector(`#${MyYoutubeRecommendation.containerId}`);
