@@ -7,11 +7,16 @@ class My_Youtube_Recommendation {
         public function __construct() {
 			$this->options = get_option( 'my_yt_rec' );
 
-			// Filters
-			add_filter( 'the_content', array( $this, 'add_videos_list_in_single_content' ) );
+			// Mandatory Info for Plugin Work
+			if ( $this->options['channel_id'] != "" ){
 
-			// Actions
-			add_action( 'wp_enqueue_scripts', array ( $this, 'enqueue_assets' ) );
+				// Filters
+				add_filter( 'the_content', array( $this, 'add_videos_list_in_single_content' ) );
+
+				// Actions
+				add_action( 'wp_enqueue_scripts', array ( $this, 'enqueue_assets' ) );
+
+			}
 		}
 	
 		public function add_videos_list_in_single_content($content) {
@@ -19,7 +24,6 @@ class My_Youtube_Recommendation {
 			if ( is_single() ) {  
 
 				$position = $this->options['show_position'];
-				$position = "after";
 
 				if ($position == 'before') {
 					$content =  $this->build_html_videos_list() . $content;
@@ -32,8 +36,9 @@ class My_Youtube_Recommendation {
 		}
 
 		private function build_html_videos_list() {
+
 			$container_id   = 'my-yt-rec-container';
-			$content        .= "<div id='$container_id'>".__('Loading...')."</div>";
+			$content        .= "<div id='$container_id'><div style='text-align:center'>".__('Loading...')."</div></div>";
 			$script         = "<script>
 							(function ($) {
 								$(function () {
@@ -43,6 +48,7 @@ class My_Youtube_Recommendation {
 							})(jQuery);
 						</script>";
 			return $content . $script;
+
 		}
 
 		public function enqueue_assets() {
