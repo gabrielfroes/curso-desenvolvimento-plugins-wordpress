@@ -47,4 +47,5 @@ msgstr "Mostrar nas Publicações"
 msgid "Loading..."
 msgstr "Carregando..."
 
-
+msgid "Last Videos"
+msgstr "Últimos Vídeos"
