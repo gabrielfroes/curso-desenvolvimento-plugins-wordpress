@@ -5,13 +5,15 @@ class My_Youtube_Recommendation_Json{
         private $channel_id;
         private $expiration; // in hours
         private $filename;
+        private $dirname;
         private $path;
 
-        public function __construct($channel_id, $expiration = 1) {
+        public function __construct($channel_id, $expiration = 1, $dirname, $filename) {
 
             $this->channel_id = $channel_id;
             $this->expiration = $expiration;
-            $this->filename   = MY_YOUTUBE_RECOMMENDATION_JSON_FILENAME;
+            $this->dirname    = $dirname;
+            $this->filename   = $filename;
             $this->path       = $this->create_folder_path(); 
 
             //Ajax
@@ -31,7 +33,7 @@ class My_Youtube_Recommendation_Json{
             
             $upload_dir = wp_upload_dir();
             if (  ! empty( $upload_dir['basedir'] ) ) {
-                $dirname = $upload_dir['basedir'] . '/' . MY_YOUTUBE_RECOMMENDATION_PLUGIN_SLUG;
+                $dirname = $upload_dir['basedir'] . '/' . $this->dirname;
                 if (  ! file_exists( $dirname ) ) {
                     wp_mkdir_p( $dirname );
                 }
