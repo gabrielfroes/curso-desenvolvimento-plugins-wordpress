@@ -2,6 +2,8 @@ class MyYoutubeRecommendation {
 
     static data = {};
     static containerId = "";
+    static limit;
+    static max_height;
 
     static async loadVideos() {
         console.log(`%cMy Youtube Recommendation: Loading data from AJAX'`, "background:green;color:white");
@@ -11,7 +13,7 @@ class MyYoutubeRecommendation {
         };
         jQuery.post(my_yt_rec_ajax.url, postData, function (response) {
             MyYoutubeRecommendation.data = JSON.parse(response);
-            if (MyYoutubeRecommendation.containerId != "") MyYoutubeRecommendation.buildList();
+            MyYoutubeRecommendation.buildList();
         });
 
     }
@@ -39,12 +41,13 @@ class MyYoutubeRecommendation {
         theListTitle.textContent = 'Meus Vídeos';
 
         // Full List
-        theList.className = 'my-yt-rec'
+        theList.className = 'my-yt-rec';
         //theList.appendChild(theListTitle);
 
-        myData.videos.slice(0, 3);
-        for (let i = 0; i < myData.videos.length; i++) {
-            theList.appendChild(MyYoutubeRecommendation.buildListItem(myData.videos[i], channelElements));
+        let videos = {};
+        if (MyYoutubeRecommendation.limit != null) videos = myData.videos.slice(0, MyYoutubeRecommendation.limit);
+        for (let i = 0; i < videos.length; i++) {
+            theList.appendChild(MyYoutubeRecommendation.buildListItem(videos[i], channelElements));
         }
 
         let container = document.querySelector(`#${MyYoutubeRecommendation.containerId}`);
