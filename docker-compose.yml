@@ -13,6 +13,8 @@ services:
             WORDPRESS_DB_PASSWORD: wppass
             WORDPRESS_DB_NAME: wpdb
         volumes:
+            - wp_uploads:/var/www/html/wp-content/uploads
+            - wp_themes:/var/www/html/wp-content/themes
             - ./src/:/var/www/html/wp-content/plugins/my-youtube-recommendation
 
     db:
@@ -26,21 +28,18 @@ services:
         volumes:
             - db:/var/lib/mysql
 
-    phpmyadmin:
+    adminer:
         depends_on:
             - db
-        image: phpmyadmin/phpmyadmin
+        image: adminer
         restart: always
         ports:
-            - 8888:80
-        environment:
-            PMA_HOST: wpdb
-            MYSQL_ROOT_PASSWORD: wppass
-        networks:
-            - back
+            - 8888:8080
 
 networks:
     back:
         
 volumes:
     db:
+    wp_uploads:
+    wp_themes:
