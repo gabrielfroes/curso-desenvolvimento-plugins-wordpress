@@ -8,14 +8,21 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
          * Holds the values to be used in the fields callbacks
          */
         private $options;
+        private $plugin_basename;
+        private $plugin_slug;
 
         /**
          * Start up
          */
         public function __construct() {
+            
             add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
             add_action( 'admin_init', array( $this, 'page_init' ) );
             add_action( 'admin_footer_text', array( $this, 'page_footer' ) );
+
+            $this->plugin_basename = MY_YOUTUBE_RECOMMENDATION_BASENAME;
+            $this->plugin_slug = MY_YOUTUBE_RECOMMENDATION_PLUGIN_SLUG;
+            add_filter( "plugin_action_links_" . $this->plugin_basename, array( $this, 'add_settings_link' ) );
         }
 
         /**
@@ -27,9 +34,18 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
                 __('Settings'), 
                 __('My Youtube Recommendation'), 
                 'manage_options', 
-                'my-youtube-recommendation', 
+                $this->plugin_slug, 
                 array( $this, 'create_admin_page' )
             );
+        }
+
+        /**
+         * Add settings link on plugins page
+         */
+        public function add_settings_link( $links ) {
+            $settings_link = '<a href="options-general.php?page='. $this->plugin_slug .'">' . __( 'Settings' ) . '</a>';
+            array_unshift( $links, $settings_link );
+            return $links;
         }
 
         /**
@@ -67,14 +83,14 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
 
             add_settings_section(
                 'setting_section_id_1', // ID
-                'Youtube Channel Settings', // Title
+                __('Youtube Channel Settings'), // Title
                 null, // Callback
                 'my-yt-rec-admin' // Page
             );  
 
             add_settings_field(
                 'channel_id', // ID
-                'Channel Id', // Title 
+                __('Channel Id'), // Title 
                 array( $this, 'channel_id_callback' ), // Callback
                 'my-yt-rec-admin', // Page
                 'setting_section_id_1'// Section           
@@ -82,7 +98,7 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
 
             add_settings_section(
                 'setting_section_id_2',
-                'Video List Settings',
+                __('Video List Settings'),
                 null,
                 'my-yt-rec-admin'
             );    
@@ -97,7 +113,7 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
 
             add_settings_field(
                 'title', 
-                'Title', 
+                __('Title'), 
                 array( $this, 'title_callback' ), 
                 'my-yt-rec-admin', 
                 'setting_section_id_2'
@@ -105,14 +121,14 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
             
             add_settings_field(
                 'limit',
-                'Videos on List',
+                __('Videos on List'),
                 array( $this, 'limit_callback' ),
                 'my-yt-rec-admin',
                 'setting_section_id_2'
             );  
             add_settings_field(
                 'cache_expiration',
-                'Cache Expiration', 
+                __('Cache Expiration'), 
                 array( $this, 'cache_expiration_callback' ), 
                 'my-yt-rec-admin', 
                 'setting_section_id_2' 
@@ -120,14 +136,14 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
 
             add_settings_section(
                 'setting_section_id_3',
-                'Customize Style', 
+                __('Customize Style'), 
                 null, 
                 'my-yt-rec-admin'
             );  
 
             add_settings_field(
                 'custom_css', 
-                'Your CSS', 
+                __('Your CSS'), 
                 array( $this, 'custom_css_callback' ), 
                 'my-yt-rec-admin', 
                 'setting_section_id_3'
@@ -145,10 +161,7 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
          */
         public function sanitize( $input ) {
 
-            var_dump($input);
-
-            $new_input = array();
-            
+            $new_input = array();          
 
             if( isset( $input['channel_id'] ) )
                 $new_input['channel_id'] = sanitize_text_field( $input['channel_id'] );
@@ -188,9 +201,9 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
             ?>
             <fieldset>
                 <legend class="screen-reader-text"><span><?php echo __('On posts show videos in position:') ?></span></legend>
-                <label><input type="radio" name="show_position" value=""<?php echo ( $value == '' ) ? 'checked="checked"' : '' ?>> <?php echo __('Disable') ?></label><br>
-                <label><input type="radio" name="show_position" value="after"<?php echo ( $value == 'after' ) ? 'checked="checked"' : '' ?>> <?php echo __('After') ?></label><br>
-                <label><input type="radio" name="show_position" value="before"<?php echo ( $value == 'before' ) ? 'checked="checked"' : '' ?>> <?php echo __('Before') ?></label>
+                <label><input type="radio" name="my_yt_rec[show_position]" value=""<?php echo ( $value == '' ) ? 'checked="checked"' : '' ?>> <?php echo __('Disable') ?></label><br>
+                <label><input type="radio" name="my_yt_rec[show_position]" value="after"<?php echo ( $value == 'after' ) ? 'checked="checked"' : '' ?>> <?php echo __('After') ?></label><br>
+                <label><input type="radio" name="my_yt_rec[show_position]" value="before"<?php echo ( $value == 'before' ) ? 'checked="checked"' : '' ?>> <?php echo __('Before') ?></label>
             </fieldset>
             <?php
         }

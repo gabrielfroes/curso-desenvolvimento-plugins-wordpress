@@ -37,6 +37,11 @@ if ( ! defined( 'MY_YOUTUBE_RECOMMENDATION_PLUGIN_SLUG' ) ) {
 	define( 'MY_YOUTUBE_RECOMMENDATION_PLUGIN_SLUG', 'my-youtube-recommendation' );
 }
 
+// Plugin Basename
+if ( ! defined( 'MY_YOUTUBE_RECOMMENDATION_BASENAME' ) ) {
+	define( 'MY_YOUTUBE_RECOMMENDATION_BASENAME', plugin_basename( __FILE__ ) );
+}
+
 // Plugin Folder
 if ( ! defined( 'MY_YOUTUBE_RECOMMENDATION_PLUGIN_DIR' ) ) {
 	define( 'MY_YOUTUBE_RECOMMENDATION_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
