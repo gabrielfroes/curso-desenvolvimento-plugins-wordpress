@@ -10,18 +10,20 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
         private $options;
         private $plugin_basename;
         private $plugin_slug;
+        private $json_filename;
 
         /**
          * Start up
          */
-        public function __construct() {
-            
+        public function __construct($basename, $slug, $json_filename) {
+            $this->plugin_basename = $basename;
+            $this->plugin_slug = $slug;
+            $this->json_filename = $json_filename;
+
             add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
             add_action( 'admin_init', array( $this, 'page_init' ) );
             add_action( 'admin_footer_text', array( $this, 'page_footer' ) );
 
-            $this->plugin_basename = MY_YOUTUBE_RECOMMENDATION_BASENAME;
-            $this->plugin_slug = MY_YOUTUBE_RECOMMENDATION_PLUGIN_SLUG;
             add_filter( "plugin_action_links_" . $this->plugin_basename, array( $this, 'add_settings_link' ) );
         }
 
@@ -56,7 +58,7 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
             $this->options = get_option( 'my_yt_rec' );
             ?>
             <div class="wrap">
-                <h1><?php echo MY_YOUTUBE_RECOMMENDATION_NAME ?></h1>
+                <h1><?php echo __('My Youtube Recommendation') ?></h1>
                 <form method="post" action="options.php">
                 <?php
                     // This prints out all hidden setting fields
@@ -224,7 +226,7 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
 
         public function cache_expiration_callback() {
             $upload_dir = wp_upload_dir();
-            $json_url = $upload_dir['baseurl'] . '/' . MY_YOUTUBE_RECOMMENDATION_PLUGIN_SLUG . '/' . MY_YOUTUBE_RECOMMENDATION_JSON_FILENAME;
+            $json_url = $upload_dir['baseurl'] . '/' . $this->$plugin_slug . '/' . $this->json_filename;
             printf(
                 'All data will be stored in a JSON file for <input type="number" id="cache_expiration" min="1" name="my_yt_rec[cache_expiration]" value="%s" class="small-text" /> hours.
                 <p class="description"><a href="'.$json_url.'" target="_blank">'.__('Test here').'</a>.',
@@ -240,6 +242,3 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
         }
     }
 }
-
-if( is_admin() )
-    $my_yt_rec_admin_page = new My_Youtube_Recommendation_Admin();

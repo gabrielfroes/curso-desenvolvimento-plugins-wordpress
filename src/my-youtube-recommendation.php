@@ -57,8 +57,14 @@ require_once MY_YOUTUBE_RECOMMENDATION_PLUGIN_DIR . 'includes/class-my-youtube-r
 require_once MY_YOUTUBE_RECOMMENDATION_PLUGIN_DIR . 'includes/class-my-youtube-recommendation-json.php';
 require_once MY_YOUTUBE_RECOMMENDATION_PLUGIN_DIR . 'includes/class-my-youtube-recommendation-widget.php';
 
-if( is_admin() ) // Optional
+if( is_admin() ) {
     require_once MY_YOUTUBE_RECOMMENDATION_PLUGIN_DIR . 'includes/class-my-youtube-recommendation-admin.php';
+    $my_yt_rec_admin_page = new My_Youtube_Recommendation_Admin(
+        MY_YOUTUBE_RECOMMENDATION_BASENAME, 
+        MY_YOUTUBE_RECOMMENDATION_PLUGIN_SLUG, 
+        MY_YOUTUBE_RECOMMENDATION_JSON_FILENAME
+    );
+}
 
 // Plugin Instance
 $my_yt_rec_plugin = new My_Youtube_Recommendation();
@@ -66,6 +72,11 @@ $my_yt_rec_plugin = new My_Youtube_Recommendation();
 $channel_id = $my_yt_rec_plugin->options['channel_id'];
 if ( $channel_id != "" ){
     $expiration = $my_yt_rec_plugin->options['cache_expiration'];
-    $my_yt_rec_json = new My_Youtube_Recommendation_Json( $channel_id, $expiration );
+    $my_yt_rec_json = new My_Youtube_Recommendation_Json( 
+        $channel_id, 
+        $expiration, 
+        MY_YOUTUBE_RECOMMENDATION_PLUGIN_SLUG, 
+        MY_YOUTUBE_RECOMMENDATION_JSON_FILENAME 
+    );
   
 }
