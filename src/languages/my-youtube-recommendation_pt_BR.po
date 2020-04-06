@@ -17,6 +17,33 @@ msgstr "Minha recomendação do Youtube"
 msgid "Settings"
 msgstr "Configurações"
 
+msgid "Youtube Channel Settings"
+msgstr "Configuração do Canal no Youtube"
+
+msgid "Channel Id"
+msgstr "ID do canal"
+
+msgid "Video List Settings"
+msgstr "Configurações da Lista de Vídeos"
+
+msgid "Show in Posts"
+msgstr "Mostrar nas Publicações"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Videos on List"
+msgstr "Vídeos na Lista"
+
+msgid "Cache Expiration"
+msgstr "Expiração do Cache"
+
+msgid "Customize Style"
+msgstr "Personalize o Stylesheet"
+
+msgid "Your CSS"
+msgstr "Seu CSS"
+
 msgid "Plugin Version"
 msgstr "Versão do Plugin"
 
@@ -25,6 +52,9 @@ msgstr "exemplo"
 
 msgid "Find here your channel Id"
 msgstr "Encontre aqui o ID do seu canal"
+
+msgid "On posts show videos in position"
+msgstr "Posição para mostrar os vídeos nas publicações"
 
 msgid "Disable"
 msgstr "Desativado"
@@ -41,6 +71,9 @@ msgstr "Máximo"
 msgid "Optional"
 msgstr "Opcional"
 
+msgid "Test here"
+msgstr "Teste aqui"
+
 msgid "Show in Posts"
 msgstr "Mostrar nas Publicações"
 
@@ -49,3 +82,6 @@ msgstr "Carregando..."
 
 msgid "Last Videos"
 msgstr "Últimos Vídeos"
+
+msgid "Videos to show"
+msgstr "Vídeos a mostrar"
