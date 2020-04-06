@@ -16,8 +16,7 @@ if ( ! function_exists( 'my_youtube_recommendation_uninstall' ) ) {
 		$json_folder = $upload_dir['basedir'] . '/my-youtube-recommendation';
 		$wp_filesystem = WP_Filesystem_Direct();
 		$wp_filesystem->delete($json_folder, true);
-
 	}
 }
 
-register_deactivation_hook( __FILE__, 'my_youtube_recommendation_uninstall' );
+register_uninstall_hook( __FILE__, 'my_youtube_recommendation_uninstall' );
