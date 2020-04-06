@@ -41,7 +41,7 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Widget' ) ) {
 
             <?php // Limit ?>
             <p>
-                <label for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>"><?php echo __('Number of videos to show:'); ?></label>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>"><?php echo __('Videos to show:'); ?></label>
                 <input class="tiny-text" id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" type="number" step="1" min="1" max="15" value="<?php echo esc_attr( $limit ); ?>" size="3" /> (15 max)
             </p>
 
