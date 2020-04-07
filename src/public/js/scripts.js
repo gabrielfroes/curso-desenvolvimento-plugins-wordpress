@@ -1,19 +1,9 @@
 const MyYoutubeRecommendation = {
 
-    data: null,
-    lists: [],
+    callBacks: [],
 
     async loadVideos(url) {
         console.log(`%cMy Youtube Recommendation: Loading data from JSON'`, "background:green;color:white");
-
-        if (this.data != null) {
-
-            return new Promise((res, rej) => {
-                console.log("Dados já existem?", (this.data));
-                res(this.data);
-
-            });
-        }
 
         const postData = {
             action: 'my_youtube_recommendation_videos'
