@@ -26,6 +26,7 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Widget' ) ) {
             // Set widget defaults
             $defaults = array(
                 'title'         => __('Last Videos'),
+                'layout'        => 'grid',
                 'limit'         => '3'
             );
             
@@ -38,6 +39,15 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Widget' ) ) {
                 <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
             </p>
             <?php ?>
+
+            <?php // Layout ?>
+            <p>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'layout' ) ); ?>"><?php echo __('Layout:'); ?></label>
+                <select class="postform" id="<?php echo esc_attr( $this->get_field_id( 'layout' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'layout' ) ); ?>">
+                <option class="level-0" value="grid" <?php echo (esc_attr( $layout ) == 'grid') ? 'selected="selected"': '' ?>>Grid</option>
+                <option class="level-0" value="list" <?php echo (esc_attr( $layout ) == 'list') ? 'selected="selected"': '' ?>>List</option>
+                </select>
+            </p>
 
             <?php // Limit ?>
             <p>
@@ -52,6 +62,7 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Widget' ) ) {
         public function update( $new_instance, $old_instance ) {
             $instance = $old_instance;
             $instance['title']      = isset( $new_instance['title'] ) ? wp_strip_all_tags( $new_instance['title'] ) : '';
+            $instance['layout']      = isset( $new_instance['layout'] ) ? wp_strip_all_tags( $new_instance['layout'] ) : 'grid';
             $instance['limit']      = isset( $new_instance['limit'] ) ? wp_strip_all_tags( $new_instance['limit'] ) : '';
             return $instance;
         }
@@ -64,6 +75,7 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Widget' ) ) {
 
             // Check the widget options
             $title      = isset( $instance['title'] ) ? apply_filters( 'title', $instance['title'] ) : '';
+            $layout     = isset( $instance['layout'] ) ? apply_filters( 'layout', $instance['layout'] ) : 'grid';
             $limit      = isset( $instance['limit'] ) ? apply_filters( 'limit', $instance['limit'] ) : '';
 
             // WordPress core before_widget hook (always include )
@@ -72,16 +84,15 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Widget' ) ) {
             ?>
             <div class="widget-text wp_widget_plugin_box">
                 <?php echo ( $title ) ? $before_title . $title . $after_title : ''; ?>
-                <div id='<?php echo $widget_unique_id ?>'><div style='text-align:center'><?php echo __('Loading...') ?></div></div>
+                <div id='<?php echo $widget_unique_id ?>'><?php echo __('Loading...') ?></div>
             </div>
             <script>
-                (function ($) {
-                    $(function () {
-                        MyYoutubeRecommendation.limit = <?php echo $limit ?>;
-                        MyYoutubeRecommendation.loadVideos();
-                        MyYoutubeRecommendation.containerId = '<?php echo $widget_unique_id ?>';
-                    });
-                })(jQuery);
+                MyYoutubeRecommendation.lists.push({
+                container: '<?php echo $widget_unique_id ?>',
+                layout: '<?php echo $layout ?>',
+                limit: <?php echo $limit ?>,
+                callback: MyYoutubeRecommendation.buildList
+                });
             </script>
 
             <?php

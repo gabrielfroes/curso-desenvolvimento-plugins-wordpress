@@ -56,6 +56,7 @@ if ( ! defined( 'MY_YOUTUBE_RECOMMENDATION_JSON_FILENAME' ) ) {
 require_once MY_YOUTUBE_RECOMMENDATION_PLUGIN_DIR . 'includes/class-my-youtube-recommendation.php';
 require_once MY_YOUTUBE_RECOMMENDATION_PLUGIN_DIR . 'includes/class-my-youtube-recommendation-json.php';
 require_once MY_YOUTUBE_RECOMMENDATION_PLUGIN_DIR . 'includes/class-my-youtube-recommendation-widget.php';
+require_once MY_YOUTUBE_RECOMMENDATION_PLUGIN_DIR . 'includes/class-my-youtube-recommendation-shortcode.php';
 if( is_admin() )
     require_once MY_YOUTUBE_RECOMMENDATION_PLUGIN_DIR . 'includes/class-my-youtube-recommendation-admin.php';
 
@@ -76,6 +77,9 @@ if ( $channel_id != "" ){
 
 // Widget Instance
 $my_yt_rec_widget = new My_Youtube_Recommendation_Widget();
+
+// Shortcode Instance
+$my_yt_rec_shortcode = new My_Youtube_Recommendation_Shortcode();
 
 // Admin Instance
 if( is_admin() ) {

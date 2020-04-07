@@ -37,16 +37,18 @@ class My_Youtube_Recommendation {
 
 		private function build_html_videos_list() {
 
+			$limit = $this->options['limit'];
+
 			$container_id   = 'my-yt-rec-container';
-			$content        .= "<div id='$container_id'><div style='text-align:center'>".__('Loading...')."</div></div>";
+			$content        .= "<div id='$container_id'>".__('Loading...')."</div>";
 			$script         = "<script>
-							(function ($) {
-								$(function () {
-									MyYoutubeRecommendation.containerId = '$container_id';
-									MyYoutubeRecommendation.loadVideos();
+								MyYoutubeRecommendation.lists.push({
+								container: '$container_id',
+								layout: 'list',
+								limit: $limit,
+								callback: MyYoutubeRecommendation.buildList
 								});
-							})(jQuery);
-						</script>";
+							</script>";
 			return $content . $script;
 
 		}
@@ -54,7 +56,8 @@ class My_Youtube_Recommendation {
 		public function enqueue_assets() {
 
 	        wp_enqueue_style( 'my-youtube-recommendation-style', plugin_dir_url( __DIR__ ) . 'public/css/style.css' );
-        	wp_enqueue_script( 'my-youtube-recommendation-scripts', plugin_dir_url( __DIR__ ) . 'public/js/scripts.js', array( 'jquery' ), '', true );
+        	wp_enqueue_script( 'my-youtube-recommendation-scripts', plugin_dir_url( __DIR__ ) . 'public/js/scripts.js', array( 'jquery' ), '', false );
+        	wp_enqueue_script( 'my-youtube-recommendation-loader', plugin_dir_url( __DIR__ ) . 'public/js/loader.js', array( 'jquery' ), '', true );
 			wp_localize_script( 'my-youtube-recommendation-scripts', 'my_yt_rec_ajax', array( 'url' => network_admin_url( 'admin-ajax.php' ) ) );
 			
 		}

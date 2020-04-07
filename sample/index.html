@@ -1,346 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Videos Recomendation</title>
-    <style>
-      body {
-        background: #131313;
-        margin: 0;
-      }
 
-      .container {
-        margin: 0 auto;
-        width: 100%;
-        min-height: 500px;
-        padding: 10px;
-        background: #fff;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Videos Recomendation</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: #131313;
+      margin: 0;
+    }
 
-      .my-yt-rec {
-        --my-yt-rec-max-item-width: 390px;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        align-items: center;
-        justify-content: space-around;
-        font-family: Arial, Helvetica, sans-serif;
-        color: #636363;
-      }
+    .container {
+      text-align: center;
+      margin: 0 auto;
+      width: 100%;
+      min-height: 500px;
+      padding: 10px;
+      background: #fff;
+    }
+  </style>
+</head>
 
-      .my-yt-rec-item {
-        flex: 45% 45%;
-        max-width: var(--my-yt-rec-max-item-width);
-        min-width: 319px;
-        position: relative;
-        padding: 10px;
-      }
+<body>
+  <h1>Lista 1</h1>
+  <div id="videos" class="container">Carregando...</div>
 
-      @media (min-width: 576px) {
-        .my-yt-rec {
-          /* Versão lista */
-          /* flex-direction: column;
-          flex-wrap: wrap;
-          align-items: flex-start; */
-        }
+  <h2>Widget</h2>
+  <div id="videoswidget" class="container">Carregando...</div>
 
-        .my-yt-rec-item {
-           /* Versão lista */
-            /* flex-direction: row;
-            min-width: 100%;
-            display: flex;
-            align-items: left; */
-        }
-      }
+  <h2>ShortCode</h2>
+  <div id="videosshortcode" class="container">Carregando...</div>
 
-      /* Medium devices (tablets, 768px and up) */
-      @media (min-width: 768px) {
-        .my-yt-rec {
-          flex-direction: row;
-          flex-wrap: wrap;
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script>
+    let my_yt_rec_ajax = {
+      'url': "http://localhost:5500/sample/videos.json"
+    };
+  </script>
+  <script src="scripts.js"></script>
 
-          /* Versão lista */
-          /* flex-direction: column;
-          flex-wrap: wrap;
-          align-items: flex-start; */
-        }
 
-        .my-yt-rec-item {
-          flex: 0 35%;
-          max-width: 35%;
+  <script>
+    MyYoutubeRecommendation.lists[0] = {
+      container: "videoswidget",
+      layout: 'list',
+      limit: 3,
+      callback: MyYoutubeRecommendation.buildList
+    };
 
-          /* Versão lista */
-          /* flex-direction: row;
-          min-width: 100%;
-          display: flex;
-          align-items: left; */
-        }
-      }
 
-      /* Large devices (desktops, 992px and up) */
-      @media (min-width: 992px) {
-        .my-yt-rec {
-          /* Versão lista */
-          /* flex-direction: column;
-          flex-wrap: wrap;
-          align-items: flex-start; */
-        }
+    MyYoutubeRecommendation.lists[1] = {
+      container: "videos",
+      layout: 'grid',
+      limit: 15,
+      callback: MyYoutubeRecommendation.buildList
+    };
 
-        .my-yt-rec-item {
-          /* Versão lista */
-          /* flex-direction: row;
-          min-width: 100%;
-          display: flex;
-          align-items: left; */
-        }
-      }
+    $(function () {
 
-      /* Extra large devices (large desktops, 1200px and up) */
-      @media (min-width: 1200px) {
-        .my-yt-rec {
-          flex-direction: row;
-          flex-wrap: wrap;
-          
-          /* Versão lista */
-          /* flex-direction: column;
-          flex-wrap: wrap;
-          align-items: flex-start; */
-        }
-
-        .my-yt-rec-item {
-          flex: 0 0 25%;
-          max-width: var(--my-yt-rec-max-item-width);
-          flex-direction: column;
-          
-          /* Versão lista */
-            /* flex-direction: row;
-            min-width: 100%;
-            display: flex;
-            align-items: left; */
-        }
-      }
-
-      .my-yt-rec a {
-        color: #636363;
-        text-decoration: none;
-        cursor: pointer;
-      }
-
-      .my-yt-rec-details {
-        display: flex;
-        align-items: left;
-        padding-right: 24px;
-        /* Versão Lista 
-        padding-left: 12px;*/
-      }
-
-      .my-yt-rec-meta div{
-        white-space: normal;
-        text-overflow: ellipsis;
-        font-size: 9pt;
-        color: #606060;
-      }
-
-      .my-yt-rec-thumbnail {
-        transition: opacity 0.5s;
-        width: 100%;
-        min-width: 319px;
-        max-width: var(--my-yt-rec-max-item-width);
-        top: 0;
-        right: 0;
-        bottom: 10px;
-        left: 0;
-      }
-
-      .my-yt-rec-channel {
-        overflow: hidden;
-      }
-
-      .my-yt-rec-title {
-        white-space: normal;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        font-size: 10pt;
-        line-height: 14pt;
-        font-weight: bold;
-        color:#030303;
-        margin: 12px 0 4px 0;
-      }
-
-      .my-yt-rec-avatar-box {
-        flex: content;
-        max-width: 36px;
-        min-width: 319px;
-        position: relative;
-        padding: 10px;
-      }
-
-      .my-yt-rec-avatar {
-        border-radius: 50%;
-        width: 36px;
-        height: 36px;
-        margin-top: 12px;
-        margin-right: 12px;
-      }
-    </style>
-  </head>
-
-  <body></body>
-    <div class="container"></div>
-
-    <script>
-      // READ JSON FROM SERVER
-      let url = "http://localhost:5500/sample/videos.json";
-      fetch(url)
-        .then(res => res.json())
-        .then(out => {
-          buildList(out);
+      MyYoutubeRecommendation.loadVideos(my_yt_rec_ajax.url).then((value) => {
+        MyYoutubeRecommendation.lists.forEach((item) => {
+          item.callback(value, item.container, item.layout, item.limit);
         })
-        .catch(err => {
-          throw err;
-        });
-    </script>
+      });
+    });
+  </script>
 
-    <script>
-     
-      // Time descripton change function
-      function timeAgo(dateParam) {
-        if (!dateParam) {
-          return null;
-        }
+</body>
 
-        const date =
-          typeof dateParam === "object" ? dateParam : new Date(dateParam);
-        const DAY_IN_MS = 86400000; // 24 * 60 * 60 * 1000
-        const today = new Date();
-        const yesterday = new Date(today - DAY_IN_MS);
-        const seconds = Math.round((today - date) / 1000);
-        const minutes = Math.round(seconds / 60);
-        const hours = Math.round(minutes / 60);
-        const days = Math.round(hours / 24);
-        const weeks = Math.round(days / 7);
-        const months = Math.round(weeks / 4);
-        const years = Math.round(months / 12);
-
-        if (seconds < 5) {
-          return "now";
-        } else if (seconds < 60) {
-          return `${seconds} segundos atrás`;
-        } else if (seconds < 90) {
-          return "há aproximadamente 1 min";
-        } else if (minutes < 60) {
-          return minutes==1 ? `há ${minutes} minuto` : `há ${minutes} minutos`; 
-        } else if (hours < 24) {
-          return hours==1 ? `há ${hours} hora` : `há ${hours} horas`;
-        } else if (days < 31) {
-          return days==1 ? `há ${days} dia` : `há ${days} dias`;
-        } else if (weeks < 4) {
-          return weeks==1 ? `há ${weeks} semana` : `há ${weeks} semanas`;
-        } else if (months < 12) {
-          return months==1 ? `há ${months} mês` : `há ${months} meses`;
-        } else {
-          return years==1 ? `há ${years} anos` : `há ${years} anos`;
-        }
-      }
-    </script>
-
-    <script>
-      function buildList(list) {
-        let theListTitle = document.createElement("h3");
-        let theList = document.createElement("div");
-
-        // Channel Info
-        let channelName = list["channel"]["name"];
-        let channelLink = list["channel"]["link"];
-        let channelAvatar = document.createElement("img");
-        channelAvatar.src = list["channel"]["avatar"];
-        channelAvatar.className = "my-yt-rec-avatar";
-
-        let channelElements = Array();
-        channelElements["name"] = channelName;
-        channelElements["link"] = channelLink;
-        channelElements["avatar"] = channelAvatar;
-
-        // Title
-        theListTitle.textContent = "Meus Vídeos";
-
-        // Full List
-        theList.className = "my-yt-rec";
-        //theList.appendChild(theListTitle);
-
-        for (let i = 0; i < list["videos"].length; i++) {
-          theList.appendChild(
-            buildListItem(list["videos"][i], channelElements)
-          );
-        }
-        document.querySelector(".container").appendChild(theList);
-      }
-
-      function buildListItem(item, channel) {
-        let theItem = document.createElement("div");
-        let theDetails = document.createElement("div");
-        let theMeta = document.createElement("div");
-        let theMetaBlock = document.createElement("div");
-        let theChannel = document.createElement("div");
-        let theMoreInformations = document.createElement("div");
-        let theInformations = document.createElement("span");
-        let theTitle = document.createElement("div");
-        let theThumbBox =document.createElement("div");
-        let theThumb = document.createElement("img");
-        let theThumbLink = document.createElement("a");
-        let theTitleLink;
-
-        // Links
-        theThumbLink.href = item.link;
-        theThumbLink.target = "_blank";
-        theThumbLink.title = item.title;
-        theTitleLink = theThumbLink.cloneNode();
-
-        // Thumb
-        theThumb.className = "my-yt-rec-thumbnail";
-        theThumb.src = item.thumbnail;
-        theThumbLink.appendChild(theThumb);
-        theThumbBox.appendChild(theThumbLink);
-        
-        // Title
-        theTitle.className = "my-yt-rec-title";
-        theTitle.textContent = item.title;
-        
-        theTitleLink.appendChild(theTitle);
-        
-        //Channel
-        theChannel.className = "my-yt-rec-channel";
-        theChannel.textContent = channel.name;
-
-        //Views and Published Time
-        theInformations.textContent =
-          item.views + " visualizações • " + timeAgo(item.published);
-
-        theMoreInformations.className = "my-yt-rec-more-informations";
-        theMoreInformations.appendChild(theChannel);
-        theMoreInformations.appendChild(theInformations);
-
-        //Make layout
-        theMetaBlock.className = "my-yt-rec-metablock";
-        theMetaBlock.appendChild(theChannel);
-        theMetaBlock.appendChild(theMoreInformations);
-
-        theMeta.className = "my-yt-rec-meta";
-        theMeta.appendChild(theTitleLink);
-        theMeta.appendChild(theMetaBlock);
-
-        theDetails.className = "my-yt-rec-details";
-        theDetails.appendChild(channel["avatar"].cloneNode(true));
-        theDetails.appendChild(theMeta);
-
-        // Item
-        theItem.className = "my-yt-rec-item";
-        theItem.appendChild(theThumbBox);
-        theItem.appendChild(theDetails);
-
-        return theItem;
-      }
-    </script>
-  </body>
 </html>
