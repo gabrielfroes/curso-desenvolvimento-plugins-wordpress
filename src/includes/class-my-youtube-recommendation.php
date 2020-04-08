@@ -38,8 +38,15 @@ class My_Youtube_Recommendation {
 		private function build_html_videos_list() {
 
 			$limit = $this->options['limit'];
+			$layout = $this->options['layout'];
+			$custom_css = $this->options['custom_css'];
+
+			$custom_css = strip_tags($custom_css);
+			$custom_css = htmlspecialchars($custom_css, ENT_HTML5 | ENT_NOQUOTES | ENT_SUBSTITUTE, 'utf-8');
 
 			$container_id   = 'my-yt-rec-container';
+			if ($custom_css != "") 
+				$content .= "<style>$custom_css</style>";
 			$content        .= "<div id='$container_id'>".__('Loading...')."</div>";
 			$script         = "<script>
 								MyYoutubeRecommendation.lists.push({
