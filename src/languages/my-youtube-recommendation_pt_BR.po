@@ -74,9 +74,6 @@ msgstr "Opcional"
 msgid "Test here"
 msgstr "Teste aqui"
 
-msgid "Show in Posts"
-msgstr "Mostrar nas Publicações"
-
 msgid "Loading..."
 msgstr "Carregando..."
 
