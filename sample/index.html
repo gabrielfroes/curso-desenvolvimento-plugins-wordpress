@@ -1,82 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Videos Recomendation</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        background: #131313;
+        margin: 0;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Videos Recomendation</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      background: #131313;
-      margin: 0;
-    }
+      .container {
+        text-align: center;
+        margin: 0 auto;
+        width: 100%;
+        min-height: 500px;
+        padding: 10px;
+        background: #fff;
+      }
 
-    .container {
-      text-align: center;
-      margin: 0 auto;
-      width: 100%;
-      min-height: 500px;
-      padding: 10px;
-      background: #fff;
-    }
+      h2 {
+        color: #fff;
+      }
+    </style>
+  </head>
 
-    h2 {
-      color: #fff
-    }
-  </style>
-</head>
+  <body>
+    <h2>Vídeo no Post</h2>
+    <div id="videos" class="container">Carregando...</div>
 
-<body>
-  <h2>Vídeo no Post</h2>
-  <div id="videos" class="container">Carregando...</div>
+    <h2>Widget</h2>
+    <div id="videoswidget" class="container">Carregando...</div>
 
-  <h2>Widget</h2>
-  <div id="videoswidget" class="container">Carregando...</div>
+    <h2>ShortCode</h2>
+    <div id="videosshortcode" class="container">Carregando...</div>
 
-  <h2>ShortCode</h2>
-  <div id="videosshortcode" class="container">Carregando...</div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+      let my_yt_rec_ajax = {
+        url: "http://localhost:5500/sample/videos.json",
+      };
+    </script>
+    <script src="scripts.js"></script>
 
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script>
-    let my_yt_rec_ajax = {
-      'url': "http://localhost:5500/sample/videos.json"
-    };
-  </script>
-  <script src="scripts.js"></script>
-
-  <script>
-    MyYoutubeRecommendation.lists.push({
-      container: "videos",
-      layout: 'grid',
-      limit: 15,
-      callback: MyYoutubeRecommendation.buildList
-    });
-
-    MyYoutubeRecommendation.lists.push({
-      container: "videoswidget",
-      layout: 'list',
-      limit: 3,
-      callback: MyYoutubeRecommendation.buildList
-    });
-
-    MyYoutubeRecommendation.lists.push({
-      container: "videosshortcode",
-      layout: 'list',
-      limit: 6,
-      callback: MyYoutubeRecommendation.buildList
-    });
-
-    $(function () {
-
-      MyYoutubeRecommendation.loadVideos(my_yt_rec_ajax.url).then((value) => {
-        MyYoutubeRecommendation.lists.forEach((item) => {
-          item.callback(value, item.container, item.layout, item.limit);
-        })
+    <script>
+      MyYoutubeRecommendation.lists.push({
+        container: "videos",
+        layout: "grid",
+        limit: 15,
+        callback: MyYoutubeRecommendation.buildList,
       });
-    });
-  </script>
 
-</body>
+      MyYoutubeRecommendation.lists.push({
+        container: "videoswidget",
+        layout: "list",
+        limit: 3,
+        callback: MyYoutubeRecommendation.buildList,
+      });
 
+      MyYoutubeRecommendation.lists.push({
+        container: "videosshortcode",
+        layout: "list",
+        limit: 6,
+        callback: MyYoutubeRecommendation.buildList,
+      });
+
+      $(function () {
+        MyYoutubeRecommendation.loadVideos(my_yt_rec_ajax.url).then((value) => {
+          MyYoutubeRecommendation.lists.forEach((item) => {
+            item.callback(value, item.container, item.layout, item.limit);
+          });
+        });
+      });
+    </script>
+  </body>
 </html>
