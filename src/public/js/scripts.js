@@ -1,6 +1,6 @@
 const MyYoutubeRecommendation = {
 
-    callBacks: [],
+    lists: [],
 
     async loadVideos(url) {
         console.log(`%cMy Youtube Recommendation: Loading data from JSON'`, "background:green;color:white");
@@ -62,101 +62,43 @@ const MyYoutubeRecommendation = {
 
         const myData = jsonData;
 
-        let theListTitle = document.createElement('h3');
         let theList = document.createElement('div');
-
-        // Channel Info
-        let channelName = myData.channel.name;
-        let channelLink = myData.channel.link;
-        let channelAvatar = document.createElement('img');
-        channelAvatar.src = myData.channel.avatar;
-        channelAvatar.className = 'my-yt-rec-avatar';
-
-        let channelElements = Array();
-        channelElements.name = channelName;
-        channelElements.link = channelLink;
-        channelElements.avatar = channelAvatar;
-
-        // Title
-        theListTitle.textContent = 'Meus Vídeos';
-
-        // Full List
         theList.className = 'my-yt-rec';
-        //theList.appendChild(theListTitle);
 
         let videos = {};
         if (limit != null) videos = myData.videos.slice(0, limit);
         for (let i = 0; i < videos.length; i++) {
-            theList.appendChild(MyYoutubeRecommendation.buildListItem(videos[i], channelElements));
+            theList.appendChild(MyYoutubeRecommendation.buildListItem(videos[i], myData.channel));
         }
 
         let container = document.querySelector(`#${containerId}`);
         container.innerHTML = '';
-        container.appendChild(theList.cloneNode(true));
+        container.appendChild(theList);
 
     },
 
     buildListItem(item, channel) {
-        let theItem = document.createElement("div");
-        let theDetails = document.createElement("div");
-        let theMeta = document.createElement("div");
-        let theMetaBlock = document.createElement("div");
-        let theChannel = document.createElement("div");
-        let theMoreInformations = document.createElement("div");
-        let theInformations = document.createElement("span");
-        let theTitle = document.createElement("div");
-        let theThumbBox = document.createElement("div");
-        let theThumb = document.createElement("img");
-        let theThumbLink = document.createElement("a");
-        let theTitleLink;
-
-        // Links
-        theThumbLink.href = item.link;
-        theThumbLink.target = "_blank";
-        theThumbLink.title = item.title;
-        theTitleLink = theThumbLink.cloneNode();
-
-        // Thumb
-        theThumb.className = "my-yt-rec-thumbnail";
-        theThumb.src = item.thumbnail;
-        theThumbLink.appendChild(theThumb);
-        theThumbBox.appendChild(theThumbLink);
-
-        // Title
-        theTitle.className = "my-yt-rec-title";
-        theTitle.textContent = item.title;
-
-        theTitleLink.appendChild(theTitle);
-
-        //Channel
-        theChannel.className = "my-yt-rec-channel";
-        theChannel.textContent = channel.name;
-
-        //Views and Published Time
-        theInformations.textContent =
-            item.views + " visualizações • " + this.timeAgo(item.published);
-
-        theMoreInformations.className = "my-yt-rec-more-informations";
-        theMoreInformations.appendChild(theChannel);
-        theMoreInformations.appendChild(theInformations);
-
-        //Make layout
-        theMetaBlock.className = "my-yt-rec-metablock";
-        theMetaBlock.appendChild(theChannel);
-        theMetaBlock.appendChild(theMoreInformations);
-
-        theMeta.className = "my-yt-rec-meta";
-        theMeta.appendChild(theTitleLink);
-        theMeta.appendChild(theMetaBlock);
-
-        theDetails.className = "my-yt-rec-details";
-        theDetails.appendChild(channel["avatar"].cloneNode(true));
-        theDetails.appendChild(theMeta);
-
-        // Item
+        const theItem = document.createElement("div");
         theItem.className = "my-yt-rec-item";
-        theItem.appendChild(theThumbBox);
-        theItem.appendChild(theDetails);
+        theItem.innerHTML = `
+            <div>
+                <a href="${item.link}" target="_blank" title="${item.title}">
+                <img class="my-yt-rec-thumbnail" src="${item.thumbnail}">
+                </a>
+            </div>
+            <div class="my-yt-rec-details"><img src="${channel.avatar}" class="my-yt-rec-avatar">
+                <div class="my-yt-rec-meta">
+                    <a href="${item.link}" target="_blank" title="${item.title}">
+                        <div class = "my-yt-rec-title">${item.title}</div>
+                    </a>
+                    <div class="my-yt-rec-metablock">
+                        <div class="my-yt-rec-channel">${channel.name}</div>
+                        <div class="my-yt-rec-more-informations">
+                            <span>${item.views} visualizações • ${this.timeAgo(item.published)}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
 
         return theItem;
     },

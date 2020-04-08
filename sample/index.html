@@ -20,11 +20,15 @@
       padding: 10px;
       background: #fff;
     }
+
+    h2 {
+      color: #fff
+    }
   </style>
 </head>
 
 <body>
-  <h1>Lista 1</h1>
+  <h2>Vídeo no Post</h2>
   <div id="videos" class="container">Carregando...</div>
 
   <h2>Widget</h2>
@@ -41,22 +45,27 @@
   </script>
   <script src="scripts.js"></script>
 
-
   <script>
-    MyYoutubeRecommendation.lists[0] = {
-      container: "videoswidget",
-      layout: 'list',
-      limit: 3,
-      callback: MyYoutubeRecommendation.buildList
-    };
-
-
-    MyYoutubeRecommendation.lists[1] = {
+    MyYoutubeRecommendation.lists.push({
       container: "videos",
       layout: 'grid',
       limit: 15,
       callback: MyYoutubeRecommendation.buildList
-    };
+    });
+
+    MyYoutubeRecommendation.lists.push({
+      container: "videoswidget",
+      layout: 'list',
+      limit: 3,
+      callback: MyYoutubeRecommendation.buildList
+    });
+
+    MyYoutubeRecommendation.lists.push({
+      container: "videosshortcode",
+      layout: 'list',
+      limit: 6,
+      callback: MyYoutubeRecommendation.buildList
+    });
 
     $(function () {
 
