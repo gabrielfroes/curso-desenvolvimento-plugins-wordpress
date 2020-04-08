@@ -17,14 +17,14 @@ msgstr "Minha recomendação do Youtube"
 msgid "Settings"
 msgstr "Configurações"
 
-msgid "Youtube Channel Settings"
-msgstr "Configuração do Canal no Youtube"
+msgid "General Settings"
+msgstr "Configurações gerais"
 
 msgid "Channel Id"
 msgstr "ID do canal"
 
-msgid "Video List Settings"
-msgstr "Configurações da Lista de Vídeos"
+msgid "Post Settings"
+msgstr "Configurações nas Publicações"
 
 msgid "Show in Posts"
 msgstr "Mostrar nas Publicações"
@@ -32,7 +32,7 @@ msgstr "Mostrar nas Publicações"
 msgid "Title"
 msgstr "Título"
 
-msgid "Videos on List"
+msgid "Videos in List"
 msgstr "Vídeos na Lista"
 
 msgid "Cache Expiration"
