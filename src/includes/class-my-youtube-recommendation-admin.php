@@ -2,6 +2,8 @@
 
 if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
 
+// TODO: Acrescentar opção de configuração de layout: GRID ou LIST
+
     class My_Youtube_Recommendation_Admin
     {
         /**
@@ -85,7 +87,7 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
 
             add_settings_section(
                 'setting_section_id_1', // ID
-                __('Youtube Channel Settings'), // Title
+                __('General Settings'), // Title
                 null, // Callback
                 'my-yt-rec-admin' // Page
             );  
@@ -98,9 +100,17 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
                 'setting_section_id_1'// Section           
             );   
 
+            add_settings_field(
+                'cache_expiration',
+                __('Cache Expiration'), 
+                array( $this, 'cache_expiration_callback' ), 
+                'my-yt-rec-admin', 
+                'setting_section_id_1' 
+            );  
+
             add_settings_section(
                 'setting_section_id_2',
-                __('Video List Settings'),
+                __('Post Settings'),
                 null,
                 'my-yt-rec-admin'
             );    
@@ -112,29 +122,15 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
                 'my-yt-rec-admin', 
                 'setting_section_id_2'
             );  
-
-            add_settings_field(
-                'title', 
-                __('Title'), 
-                array( $this, 'title_callback' ), 
-                'my-yt-rec-admin', 
-                'setting_section_id_2'
-            );   
             
             add_settings_field(
                 'limit',
-                __('Videos on List'),
+                __('Videos in List'),
                 array( $this, 'limit_callback' ),
                 'my-yt-rec-admin',
                 'setting_section_id_2'
             );  
-            add_settings_field(
-                'cache_expiration',
-                __('Cache Expiration'), 
-                array( $this, 'cache_expiration_callback' ), 
-                'my-yt-rec-admin', 
-                'setting_section_id_2' 
-            );  
+
 
             add_settings_section(
                 'setting_section_id_3',
@@ -171,9 +167,6 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
             if( isset( $input['show_position'] ) )
                 $new_input['show_position'] = sanitize_text_field( $input['show_position'] );
 
-            if( isset( $input['title'] ) )
-                $new_input['title'] = sanitize_text_field( $input['title'] );
-
             if( isset( $input['limit'] ) )
                 $new_input['limit'] = absint( $input['limit'] );
 
@@ -208,13 +201,6 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
                 <label><input type="radio" name="my_yt_rec[show_position]" value="before"<?php echo ( $value == 'before' ) ? 'checked="checked"' : '' ?>> <?php echo __('Before') ?></label>
             </fieldset>
             <?php
-        }
-
-        public function title_callback() {
-            printf(
-                '<input type="text" id="title" name="my_yt_rec[title]" value="%s" class="regular-text" /><p class="description">'.__('Optional').'</p>',
-                isset( $this->options['title'] ) ? esc_attr( $this->options['title'] ) : ''
-            );
         }
 
         public function limit_callback() {
