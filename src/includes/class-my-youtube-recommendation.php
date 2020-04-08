@@ -49,7 +49,7 @@ class My_Youtube_Recommendation {
 				$content .= "<style>$custom_css</style>";
 			$content        .= "<div id='$container_id'>".__('Loading...')."</div>";
 			$script         = "<script>
-								MyYoutubeRecommendation.lists.push({
+								MyYoutubeRecommendation.listsCallBacks.push({
 								container: '$container_id',
 								layout: 'list',
 								limit: $limit,

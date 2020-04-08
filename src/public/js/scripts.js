@@ -1,6 +1,6 @@
 const MyYoutubeRecommendation = {
 
-    lists: [],
+    listsCallBacks: [],
 
     async loadVideos(url) {
         console.log(`%cMy Youtube Recommendation: Loading data from JSON'`, "background:green;color:white");

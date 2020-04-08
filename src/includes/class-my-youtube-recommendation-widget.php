@@ -87,7 +87,7 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Widget' ) ) {
                 <div id='<?php echo $widget_unique_id ?>'><?php echo __('Loading...') ?></div>
             </div>
             <script>
-                MyYoutubeRecommendation.lists.push({
+                MyYoutubeRecommendation.listsCallBacks.push({
                 container: '<?php echo $widget_unique_id ?>',
                 layout: '<?php echo $layout ?>',
                 limit: <?php echo $limit ?>,
