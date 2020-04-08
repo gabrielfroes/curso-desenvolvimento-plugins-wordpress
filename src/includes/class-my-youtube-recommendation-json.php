@@ -16,7 +16,7 @@ class My_Youtube_Recommendation_Json{
             $this->filename   = $filename;
             $this->path       = $this->create_folder_path(); 
 
-            //Ajax
+            //Registro da action do Ajax no Wordpress
             $ajax_action = 'my_youtube_recommendation_videos';
 			add_action( "wp_ajax_$ajax_action", array ( $this, 'write_content' ) );
             add_action( "wp_ajax_nopriv_$ajax_action", array ( $this, 'write_content' ) );

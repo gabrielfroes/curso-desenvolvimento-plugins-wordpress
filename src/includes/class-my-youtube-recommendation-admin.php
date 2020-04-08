@@ -131,7 +131,6 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
                 'setting_section_id_2'
             );  
 
-
             add_settings_section(
                 'setting_section_id_3',
                 __('Customize Style'), 
