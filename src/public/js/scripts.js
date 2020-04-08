@@ -1,23 +1,24 @@
 const MyYoutubeRecommendation = {
-
-    listsCallBacks: [],
+    listCallbacks: [],
 
     async loadVideos(url) {
-        console.log(`%cMy Youtube Recommendation: Loading data from JSON'`, "background:green;color:white");
+        console.log(
+            `%cMy Youtube Recommendation: Loading data from JSON'`,
+            "background:green;color:white"
+        );
 
         const postData = {
-            action: 'my_youtube_recommendation_videos'
+            action: "my_youtube_recommendation_videos",
         };
 
         let request = jQuery.ajax({
             method: "GET",
             url: url,
             data: postData,
-            dataType: "json"
-        })
+            dataType: "json",
+        });
 
         return await request.done();
-
     },
 
     // Time descripton change function
@@ -58,42 +59,53 @@ const MyYoutubeRecommendation = {
         }
     },
 
-    buildList(jsonData, containerId, layout = 'grid', limit = 15, lang = 'en_US') {
-
+    buildList(
+        jsonData,
+        containerId,
+        layout = "grid",
+        limit = 15,
+        lang = "en_US"
+    ) {
         const myData = jsonData;
 
-        let theList = document.createElement('div');
-        theList.className = 'my-yt-rec';
+        let theList = document.createElement("div");
+
+        theList.className = (layout == "list") ? "my-yt-rec-list" : "my-yt-rec";
 
         let videos = {};
         if (limit != null) videos = myData.videos.slice(0, limit);
         for (let i = 0; i < videos.length; i++) {
-            theList.appendChild(MyYoutubeRecommendation.buildListItem(videos[i], myData.channel));
+            theList.appendChild(
+                MyYoutubeRecommendation.buildListItem(videos[i], myData.channel)
+            );
         }
 
         let container = document.querySelector(`#${containerId}`);
-        container.innerHTML = '';
+        container.innerHTML = "";
         container.appendChild(theList);
-
     },
 
     buildListItem(item, channel) {
         const theItem = document.createElement("div");
+
         theItem.className = "my-yt-rec-item";
+
         theItem.innerHTML = `
             <div>
                 <a href="${item.link}" target="_blank" title="${item.title}">
                 <img class="my-yt-rec-thumbnail" src="${item.thumbnail}">
                 </a>
             </div>
-            <div class="my-yt-rec-details"><img src="${channel.avatar}" class="my-yt-rec-avatar">
-                <div class="my-yt-rec-meta">
+            <div class="my-yt-rec-meta"><img src="${channel.avatar}" class="my-yt-rec-avatar">
+                <div class="my-yt-rec-meta-data">
+                  <h3 class = "my-yt-rec-title">
                     <a href="${item.link}" target="_blank" title="${item.title}">
-                        <div class = "my-yt-rec-title">${item.title}</div>
+                        ${item.title}
                     </a>
-                    <div class="my-yt-rec-metablock">
+                  </h3>
+                    <div class="my-yt-rec-meta-block">
                         <div class="my-yt-rec-channel">${channel.name}</div>
-                        <div class="my-yt-rec-more-informations">
+                        <div class="my-yt-rec-meta-line">
                             <span>${item.views} visualizações • ${this.timeAgo(item.published)}</span>
                         </div>
                     </div>
@@ -102,5 +114,4 @@ const MyYoutubeRecommendation = {
 
         return theItem;
     },
-
-}
+};

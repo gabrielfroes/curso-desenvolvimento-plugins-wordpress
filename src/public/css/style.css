@@ -1,4 +1,7 @@
-.my-yt-rec {
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+.my-yt-rec,
+.my-yt-rec-list {
     --my-yt-rec-max-item-width: 390px;
     text-align: left;
     display: flex;
@@ -6,8 +9,18 @@
     flex-wrap: nowrap;
     align-items: center;
     justify-content: space-around;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #636363;
+    color: #606060;
+    font-family: "Roboto", Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    letter-spacing: 0.02em;
+}
+
+.my-yt-rec-list {
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
 }
 
 .my-yt-rec-item {
@@ -18,109 +31,75 @@
     padding: 10px;
 }
 
-@media (min-width: 576px) {
-    .my-yt-rec {
-        /* Versão lista */
-        /* flex-direction: column;
-    flex-wrap: wrap;
-    align-items: flex-start; */
-    }
-
-    .my-yt-rec-item {
-        /* Versão lista */
-        /* flex-direction: row;
+.my-yt-rec-list .my-yt-rec-item {
+    flex-direction: row;
     min-width: 100%;
     display: flex;
-    align-items: left; */
-    }
+    align-items: left;
 }
+
+.my-yt-rec a,
+.my-yt-rec-list a {
+    color: #030303;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@media (min-width: 576px) {}
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-    .my-yt-rec {
+
+    .my-yt-rec,
+    .my-yt-rec-item {
         flex-direction: row;
         flex-wrap: wrap;
-
-        /* Versão lista */
-        /* flex-direction: column;
-    flex-wrap: wrap;
-    align-items: flex-start; */
     }
 
     .my-yt-rec-item {
         flex: 0 35%;
         max-width: 35%;
-
-        /* Versão lista */
-        /* flex-direction: row;
-    min-width: 100%;
-    display: flex;
-    align-items: left; */
     }
 }
 
 /* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-    .my-yt-rec {
-        /* Versão lista */
-        /* flex-direction: column;
-    flex-wrap: wrap;
-    align-items: flex-start; */
-    }
-
-    .my-yt-rec-item {
-        /* Versão lista */
-        /* flex-direction: row;
-    min-width: 100%;
-    display: flex;
-    align-items: left; */
-    }
-}
+@media (min-width: 992px) {}
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-    .my-yt-rec {
+
+    .my-yt-rec,
+    .my-yt-rec-item {
         flex-direction: row;
         flex-wrap: wrap;
-
-        /* Versão lista */
-        /* flex-direction: column;
-    flex-wrap: wrap;
-    align-items: flex-start; */
     }
 
     .my-yt-rec-item {
         flex: 0 0 25%;
         max-width: var(--my-yt-rec-max-item-width);
         flex-direction: column;
-
-        /* Versão lista */
-        /* flex-direction: row;
-    min-width: 100%;
-    display: flex;
-    align-items: left; */
     }
 }
 
-.my-yt-rec a {
-    color: #636363;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.my-yt-rec-details {
+.my-yt-rec-meta {
     display: flex;
     align-items: left;
     padding-right: 24px;
-    /* Versão Lista 
-padding-left: 12px;*/
 }
 
-.my-yt-rec-meta div {
+.my-yt-rec-list .my-yt-rec-meta {
+    padding-left: 12px;
+}
+
+.my-yt-rec-meta-data {
     white-space: normal;
     text-overflow: ellipsis;
-    font-size: 9pt;
-    color: #606060;
+}
+
+.my-yt-rec-meta-data h3 {
+    font-size: 1.17em;
+    font-weight: bold;
+    margin-bottom: 4px;
 }
 
 .my-yt-rec-thumbnail {
@@ -134,19 +113,33 @@ padding-left: 12px;*/
     left: 0;
 }
 
+.my-yt-rec-list .my-yt-rec-thumbnail {
+    min-width: 150px;
+    max-width: 150px;
+}
+
 .my-yt-rec-channel {
     overflow: hidden;
 }
 
 .my-yt-rec-title {
+    /* font-family: "Roboto", Arial, sans-serif; */
     white-space: normal;
     overflow: hidden;
-    text-overflow: ellipsis;
     font-size: 10pt;
     line-height: 14pt;
-    font-weight: bold;
+    font-weight: 600;
     color: #030303;
-    margin: 12px 0 4px 0;
+    margin: 12px 0 6px 0;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    letter-spacing: 0.03em;
+}
+
+.my-yt-rec-list .my-yt-rec-title {
+    margin-top: 4px;
 }
 
 .my-yt-rec-avatar-box {
@@ -163,4 +156,12 @@ padding-left: 12px;*/
     height: 36px;
     margin-top: 12px;
     margin-right: 12px;
+}
+
+.my-yt-rec-list .my-yt-rec-avatar {
+    display: none;
+}
+
+.my-yt-rec-meta-line {
+    margin-top: 2px;
 }

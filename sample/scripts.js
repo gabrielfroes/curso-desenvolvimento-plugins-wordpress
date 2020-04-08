@@ -70,11 +70,7 @@ const MyYoutubeRecommendation = {
 
     let theList = document.createElement("div");
 
-    if (layout == "grid") {
-      theList.className = "my-yt-rec";
-    } else {
-      theList.className = "my-yt-rec-list";
-    }
+    theList.className = (layout == "list") ? "my-yt-rec-list" : "my-yt-rec";
 
     let videos = {};
     if (limit != null) videos = myData.videos.slice(0, limit);

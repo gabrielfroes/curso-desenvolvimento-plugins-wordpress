@@ -20,7 +20,7 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Shortcode' ) ) {
             ?>
             <p id='<?php echo $shortcode_unique_id ?>'><?php echo __('Loading...') ?></p>
             <script>
-                MyYoutubeRecommendation.listsCallBacks.push({
+                MyYoutubeRecommendation.listCallbacks.push({
                 container: '<?php echo $shortcode_unique_id ?>',
                 layout: '<?php echo $layout ?>',
                 limit: <?php echo $limit ?>,
