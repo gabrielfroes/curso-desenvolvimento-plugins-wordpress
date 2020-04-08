@@ -1,25 +1,25 @@
 <?php
 /**
- * @link              http://www.github.com/gabrielfroes/my_youtube_recommendation
+ * @link              https://www.github.com/gabrielfroes/my_youtube_recommendation
  * @since             1.0.0
  * @package           My_Youtube_Recommendation
  *
  * @wordpress-plugin
  * Plugin Name:       My Youtube Recommendation
- * Plugin URI:        http://www.github.com/gabrielfroes/my_youtube_recommendation
+ * Plugin URI:        https://www.github.com/gabrielfroes/my_youtube_recommendation
  * Description:       Display the last videos from a Youtube channel using Youtube feed and keep always updated even for cached posts.
  * Version:           1.0.0
  * Author:            Gabriel Froes
  * Author URI:        https://www.youtube.com/codigofontetv
- * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * License:           GPLv3 or later
+ * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:       my-youtube-recommendation
- * Domain Path:       /languages
+ * Domain Path:       /languages/
  */
 
  // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
-	die;
+	wp_die();
 }
 
 // Plugin Version
