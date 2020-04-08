@@ -2,8 +2,6 @@
 
 if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
 
-// TODO: Acrescentar opção de configuração de layout: GRID ou LIST
-
     class My_Youtube_Recommendation_Admin
     {
         /**
@@ -124,6 +122,14 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
             );  
             
             add_settings_field(
+                'layout', 
+                __('Layout'), 
+                array( $this, 'show_layout_callback' ), 
+                'my-yt-rec-admin', 
+                'setting_section_id_2'
+            );  
+
+            add_settings_field(
                 'limit',
                 __('Videos in List'),
                 array( $this, 'limit_callback' ),
@@ -162,15 +168,18 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
 
             if( isset( $input['channel_id'] ) )
                 $new_input['channel_id'] = sanitize_text_field( $input['channel_id'] );
+                
+                if( isset( $input['cache_expiration'] ) )
+                    $new_input['cache_expiration'] = absint( $input['cache_expiration'] );
 
             if( isset( $input['show_position'] ) )
                 $new_input['show_position'] = sanitize_text_field( $input['show_position'] );
 
+            if( isset( $input['layout'] ) )
+                $new_input['layout'] = sanitize_text_field( $input['layout'] );
+
             if( isset( $input['limit'] ) )
                 $new_input['limit'] = absint( $input['limit'] );
-
-            if( isset( $input['cache_expiration'] ) )
-                $new_input['cache_expiration'] = absint( $input['cache_expiration'] );
 
             if( isset( $input['custom_css'] ) )
                 $new_input['custom_css'] = sanitize_text_field( $input['custom_css'] );
@@ -182,12 +191,24 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
          * Get the settings option array and print one of its values
          */
         public function channel_id_callback() {
-            printf(
-                '<input type="text" id="channel_id" name="my_yt_rec[channel_id]" value="%s" class="regular-text" />
-                <p class="description">'.__('sample').': UCFuIUoyHB12qpYa8Jpxoxow</p>
-                <p class="description"><a href="https://support.google.com/youtube/answer/3250431" target="_blank">'.__('Find here your channel Id').'</a></p>',
-                isset( $this->options['channel_id'] ) ? esc_attr( $this->options['channel_id'] ) : ''
-            );
+            $value = isset( $this->options['channel_id'] ) ? esc_attr( $this->options['channel_id'] ) : '';
+            ?>
+            <input type="text" id="channel_id" name="my_yt_rec[channel_id]" value="<?php echo $value ?>" class="regular-text" />
+                <p class="description"><?php echo __('sample') ?>: UCFuIUoyHB12qpYa8Jpxoxow</p>
+                <p class="description"><a href="https://support.google.com/youtube/answer/3250431" target="_blank"><?php echo __('Find here your channel Id') ?></a></p>
+            <?php
+        }
+
+        public function cache_expiration_callback() {
+            $upload_dir = wp_upload_dir();
+            $json_url = $upload_dir['baseurl'] . '/' . $this->plugin_slug . '/' . $this->json_filename;
+
+            $value = isset( $this->options['cache_expiration'] ) ? esc_attr( $this->options['cache_expiration'] ) : '1';
+            ?>
+                <input type="number" id="cache_expiration" min="1" name="my_yt_rec[cache_expiration]" value="<?php echo $value ?>" class="small-text" />
+                <?php echo __('hours is the expiration time for cached data') ?>.
+                <p class="description"><a href="'.$json_url.'" target="_blank"><?php echo __('Test here') ?></a>.
+            <?php
         }
 
         public function show_position_callback() {
@@ -202,28 +223,29 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
             <?php
         }
 
-        public function limit_callback() {
-            printf(
-                '<input type="number" id="limit" min="1" max="15" name="my_yt_rec[limit]" value="%s" class="small-text" /><p class="description">'.__('Max').': 15</p>',
-                isset( $this->options['limit'] ) ? esc_attr( $this->options['limit'] ) : '3'
-            );
+        public function show_layout_callback() {
+            $value = isset( $this->options['layout'] ) ? esc_attr( $this->options['layout'] ) : 'grid';
+            ?>
+            <select name="my_yt_rec[layout]">
+                <option value="grid"<?php echo ( $value == 'grid' ) ? 'selected="selected"' : '' ?>><?php echo __('Grid') ?></option>
+                <option value="list"<?php echo ( $value == 'list' ) ? 'selected="selected"' : '' ?>><?php echo __('List') ?></option>
+            </select>
+            <?php
         }
 
-        public function cache_expiration_callback() {
-            $upload_dir = wp_upload_dir();
-            $json_url = $upload_dir['baseurl'] . '/' . $this->$plugin_slug . '/' . $this->json_filename;
-            printf(
-                'All data will be stored in a JSON file for <input type="number" id="cache_expiration" min="1" name="my_yt_rec[cache_expiration]" value="%s" class="small-text" /> hours.
-                <p class="description"><a href="'.$json_url.'" target="_blank">'.__('Test here').'</a>.',
-                isset( $this->options['cache_expiration'] ) ? esc_attr( $this->options['cache_expiration'] ) : '1'
-            );
+        public function limit_callback() {
+            $value = isset( $this->options['limit'] ) ? esc_attr( $this->options['limit'] ) : '3';
+            ?>
+            <input type="number" id="limit" min="1" max="15" name="my_yt_rec[limit]" value="<?php echo $value ?>" class="small-text" />
+            <p class="description"><?php echo __('Max') ?> 15</p>
+            <?php
         }
 
         public function custom_css_callback() {
-            printf(
-                '<textarea id="custom_css" name="my_yt_rec[custom_css]" rows="10" cols="50" class="large-text code">%s</textarea>',
-                isset( $this->options['custom_css'] ) ? esc_attr( $this->options['custom_css'] ) : ''
-            );
+            $value = isset( $this->options['custom_css'] ) ? esc_attr( $this->options['custom_css'] ) : '';
+            ?>
+            <textarea id="custom_css" name="my_yt_rec[custom_css]" rows="10" cols="50" class="large-text code"><?php echo $value ?></textarea>
+            <?php
         }
     }
 }
