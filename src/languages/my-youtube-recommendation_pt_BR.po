@@ -82,3 +82,16 @@ msgstr "Últimos Vídeos"
 
 msgid "Videos to show"
 msgstr "Vídeos a mostrar"
+
+msgid "Grid"
+msgstr "Bloco"
+
+msgid "List"
+msgstr "Lista"
+
+msgid "hours is the expiration time for cached data"
+msgstr "hora será o tempo de expiração dos dados armazenados em cache"
+
+msgid "Layout"
+msgstr "Leiaute"
+
