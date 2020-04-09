@@ -1,5 +1,5 @@
 const MyYoutubeRecommendation = {
-  lists: [],
+  listCallbacks: [],
 
   async loadVideos(url) {
     console.log(
@@ -21,62 +21,109 @@ const MyYoutubeRecommendation = {
     return await request.done();
   },
 
-  // Time descripton change function
-  timeAgo(dateParam) {
-    if (!dateParam) return null;
+  timeLang(number, time, lang) {
+    let en_US = {
+      now: "now",
+      seconds: `${number} seconds ago`,
+      minute: `${number} minute ago`,
+      minutes: `${number} minutes ago`,
+      hour: `${number} hour ago`,
+      hours: `${number} hours ago`,
+      day: `${number} day ago`,
+      days: `${number} days ago`,
+      week: `${number} week ago`,
+      weeks: `${number} weeks ago`,
+      month: `${number} month ago`,
+      months: `${number} months ago`,
+      year: `${number} year ago`,
+      years: `${number} years ago`,
+    };
 
-    const date =
-      typeof dateParam === "object" ? dateParam : new Date(dateParam);
-    const DAY_IN_MS = 86400000; // 24 * 60 * 60 * 1000
-    const today = new Date();
-    const yesterday = new Date(today - DAY_IN_MS);
-    const seconds = Math.round((today - date) / 1000);
-    const minutes = Math.round(seconds / 60);
-    const hours = Math.round(minutes / 60);
-    const days = Math.round(hours / 24);
-    const weeks = Math.round(days / 7);
-    const months = Math.round(weeks / 4);
-    const years = Math.round(months / 12);
+    let pt_BR = {
+      now: "agora",
+      seconds: `há ${number} segundos`,
+      minute: `há ${number} minuto`,
+      minutes: `há ${number} minutos`,
+      hour: `há ${number} hora`,
+      hours: `há ${number} horas`,
+      day: `há ${number} dia`,
+      days: `há ${number} dias`,
+      week: `há ${number} semana`,
+      weeks: `há ${number} semanas`,
+      month: `há ${number} mês`,
+      months: `há ${number} meses`,
+      year: `há ${number} ano`,
+      years: `há ${number} anos`,
+    };
 
-    if (seconds < 5) {
-      return "agora";
-    } else if (seconds < 60) {
-      return `${seconds} segundos atrás`;
-    } else if (seconds < 90) {
-      return "há aproximadamente 1 min";
-    } else if (minutes < 60) {
-      return minutes == 1 ? `há ${minutes} minuto` : `há ${minutes} minutos`;
-    } else if (hours < 24) {
-      return hours == 1 ? `há ${hours} hora` : `há ${hours} horas`;
-    } else if (days < 31) {
-      return days == 1 ? `há ${days} dia` : `há ${days} dias`;
-    } else if (weeks < 4) {
-      return weeks == 1 ? `há ${weeks} semana` : `há ${weeks} semanas`;
-    } else if (months < 12) {
-      return months == 1 ? `há ${months} mês` : `há ${months} meses`;
-    } else {
-      return years == 1 ? `há ${years} anos` : `há ${years} anos`;
-    }
+    const langs = {
+      en_US: en_US,
+      pt_BR: pt_BR
+    };
+
+    const result = langs[lang];
+    return result[time];
   },
 
-  buildList(
-    jsonData,
-    containerId,
-    layout = "grid",
-    limit = 15,
-    lang = "en_US"
-  ) {
-    const myData = jsonData;
+  // Time descripton change function
+  timeAgo(date, lang) {
+    date = typeof date === "object" ? date : new Date(date);
 
+    if (!date) return null;
+
+    const intervals = [{
+        label: "year",
+        seconds: 31536000
+      },
+      {
+        label: "month",
+        seconds: 2592000
+      },
+      {
+        label: "week",
+        seconds: 604800
+      },
+      {
+        label: "day",
+        seconds: 86400
+      },
+      {
+        label: "hour",
+        seconds: 3600
+      },
+      {
+        label: "minute",
+        seconds: 60
+      },
+      {
+        label: "second",
+        seconds: 5
+      },
+      {
+        label: "now",
+        seconds: 0
+      },
+    ];
+
+    const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+    const interval = intervals.find((i) => i.seconds < seconds);
+    const count = Math.floor(seconds / interval.seconds);
+    interval.label += count !== 1 ? 's' : '';
+    return (this.timeLang(count, interval.label, lang));
+
+  },
+
+  buildList(jsonData, containerId, layout = "grid", limit = 15, lang = "en_US") {
+    const myData = jsonData;
     let theList = document.createElement("div");
 
-    theList.className = (layout == "list") ? "my-yt-rec-list" : "my-yt-rec";
+    theList.className = layout == "list" ? "my-yt-rec-list" : "my-yt-rec";
 
     let videos = {};
     if (limit != null) videos = myData.videos.slice(0, limit);
     for (let i = 0; i < videos.length; i++) {
       theList.appendChild(
-        MyYoutubeRecommendation.buildListItem(videos[i], myData.channel)
+        MyYoutubeRecommendation.buildListItem(videos[i], myData.channel, lang)
       );
     }
 
@@ -85,9 +132,12 @@ const MyYoutubeRecommendation = {
     container.appendChild(theList);
   },
 
-  buildListItem(item, channel) {
+  buildListItem(item, channel, lang) {
     const theItem = document.createElement("div");
-
+    let viewsText = {
+      pt_BR: 'visualizações',
+      en_US: 'views'
+    }
     theItem.className = "my-yt-rec-item";
 
     theItem.innerHTML = `
@@ -96,23 +146,17 @@ const MyYoutubeRecommendation = {
                 <img class="my-yt-rec-thumbnail" src="${item.thumbnail}">
                 </a>
             </div>
-            <div class="my-yt-rec-meta"><img src="${
-              channel.avatar
-            }" class="my-yt-rec-avatar">
+            <div class="my-yt-rec-meta"><img src="${channel.avatar}" class="my-yt-rec-avatar">
                 <div class="my-yt-rec-meta-data">
                   <h3 class = "my-yt-rec-title">
-                    <a href="${item.link}" target="_blank" title="${
-      item.title
-    }">
+                    <a href="${item.link}" target="_blank" title="${item.title}">
                         ${item.title}
                     </a>
                   </h3>
                     <div class="my-yt-rec-meta-block">
                         <div class="my-yt-rec-channel">${channel.name}</div>
                         <div class="my-yt-rec-meta-line">
-                            <span>${item.views} visualizações • ${this.timeAgo(
-      item.published
-    )}</span>
+                            <span>${item.views} ${viewsText[lang]} • ${this.timeAgo(item.published, lang)}</span>
                         </div>
                     </div>
                 </div>

@@ -77,6 +77,7 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Widget' ) ) {
             $title      = isset( $instance['title'] ) ? apply_filters( 'title', $instance['title'] ) : '';
             $layout     = isset( $instance['layout'] ) ? apply_filters( 'layout', $instance['layout'] ) : 'grid';
             $limit      = isset( $instance['limit'] ) ? apply_filters( 'limit', $instance['limit'] ) : '';
+            $language 	= get_locale();
 
             // WordPress core before_widget hook (always include )
             echo $before_widget;
@@ -91,6 +92,7 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Widget' ) ) {
                 container: '<?php echo $widget_unique_id ?>',
                 layout: '<?php echo $layout ?>',
                 limit: <?php echo $limit ?>,
+                lang: '<?php echo $language ?>',
                 callback: MyYoutubeRecommendation.buildList
                 });
             </script>

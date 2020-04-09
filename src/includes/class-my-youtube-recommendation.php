@@ -44,6 +44,8 @@ class My_Youtube_Recommendation {
 			$custom_css = strip_tags($custom_css);
 			$custom_css = htmlspecialchars($custom_css, ENT_HTML5 | ENT_NOQUOTES | ENT_SUBSTITUTE, 'utf-8');
 
+			$language 	= get_locale();
+
 			$container_id   = 'my-yt-rec-container';
 			if ($custom_css != "") 
 				$content .= "<style>$custom_css</style>";
@@ -53,6 +55,7 @@ class My_Youtube_Recommendation {
 								container: '$container_id',
 								layout: '$layout',
 								limit: $limit,
+								lang: '$language',
 								callback: MyYoutubeRecommendation.buildList
 								});
 							</script>";

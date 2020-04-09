@@ -16,19 +16,22 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Shortcode' ) ) {
             // Check the widget options
             $limit      = isset( $limit ) ? $limit : 1;
             $layout     = (isset( $layout ) && $layout == 'list')  ? $layout : 'grid';
+            $language 	= get_locale();
 
-            ?>
-            <p id='<?php echo $shortcode_unique_id ?>'><?php echo __('Loading...') ?></p>
-            <script>
-                MyYoutubeRecommendation.listCallbacks.push({
-                container: '<?php echo $shortcode_unique_id ?>',
-                layout: '<?php echo $layout ?>',
-                limit: <?php echo $limit ?>,
-                callback: MyYoutubeRecommendation.buildList
-                });
-            </script>
-            <?php
+            $content    = "
+                        <div id='$shortcode_unique_id'>" . __('Loading...') . "</div>
+                        <script>
+                        MyYoutubeRecommendation.listCallbacks.push({
+                            container: '$shortcode_unique_id',
+                            layout: '$layout',
+                            limit: $limit,
+                            lang: '$language',
+                            callback: MyYoutubeRecommendation.buildList
+                        });
+                        </script>
+                        ";
 
+            return $content;
         }
 
     }
