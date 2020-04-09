@@ -140,7 +140,10 @@ const MyYoutubeRecommendation = {
 
   buildListItem(item, channel, lang) {
     const theItem = document.createElement("div");
-
+    let viewsText = {
+      pt_BR: 'visualizações',
+      en_US: 'views'
+    }
     theItem.className = "my-yt-rec-item";
 
     theItem.innerHTML = `
@@ -163,7 +166,7 @@ const MyYoutubeRecommendation = {
                     <div class="my-yt-rec-meta-block">
                         <div class="my-yt-rec-channel">${channel.name}</div>
                         <div class="my-yt-rec-meta-line">
-                            <span>${item.views} visualizações • ${this.timeAgo(
+                            <span>${item.views} ${viewsText[lang]} • ${this.timeAgo(
       item.published,
       lang
     )}</span>
