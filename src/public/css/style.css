@@ -44,11 +44,11 @@
   cursor: pointer;
 }
 
-@media (min-width: 576px) {
-}
+@media (min-width: 576px) {}
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
+
   .my-yt-rec,
   .my-yt-rec-item {
     flex-direction: row;
@@ -64,14 +64,14 @@
   .my-yt-rec-list .my-yt-rec-item {
     flex-wrap: nowrap;
   }
-}
-/* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {
+
 }
 
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {}
+
 /* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-}
+@media (min-width: 1200px) {}
 
 .my-yt-rec-meta {
   display: flex;
@@ -127,6 +127,7 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  height: 2.5em;
   letter-spacing: 0.03em;
 }
 
