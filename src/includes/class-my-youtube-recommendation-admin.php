@@ -16,6 +16,9 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
          * Start up
          */
         public function __construct( $basename, $slug, $json_filename ) {
+
+            $this->options = get_option( 'my_yt_rec' );
+
             $this->plugin_basename = $basename;
             $this->plugin_slug = $slug;
             $this->json_filename = $json_filename;
@@ -23,8 +26,11 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
             add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
             add_action( 'admin_init', array( $this, 'page_init' ) );
             add_action( 'admin_footer_text', array( $this, 'page_footer' ) );
+            add_action( 'admin_notices', array( $this, 'show_notices' ) );
 
             add_filter( "plugin_action_links_" . $this->plugin_basename, array( $this, 'add_settings_link' ) );
+
+
         }
 
         /**
@@ -51,11 +57,27 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
         }
 
         /**
+         * Show notices on admin dashboard
+         */
+        public function show_notices() {
+            $value = isset( $this->options['channel_id'] ) ? esc_attr( $this->options['channel_id'] ) : '';
+            if ($value == ''){
+                ?>
+                <div class="error notice">
+                <?php echo $channel_id ?>
+                    <p><strong><?php echo __( 'My Youtube Recommendation', 'my-youtube-recommendation' ); ?></strong></p>
+                    <p><?php echo __( 'Fill with your Youtube channel ID!', 'my-youtube-recommendation' ); ?></p>
+                </div>
+                <?php
+            }
+        }
+
+        /**
          * Options page callback
          */
         public function create_admin_page() {
             // Set class property
-            $this->options = get_option( 'my_yt_rec' );
+            // $this->options = get_option( 'my_yt_rec' );
             ?>
             <div class="wrap">
                 <h1><?php echo __('My Youtube Recommendation' , 'my-youtube-recommendation'); ?></h1>
