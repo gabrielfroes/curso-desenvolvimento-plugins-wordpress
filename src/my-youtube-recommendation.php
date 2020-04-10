@@ -52,6 +52,9 @@ if ( ! defined( 'MY_YOUTUBE_RECOMMENDATION_JSON_FILENAME' ) ) {
 	define( 'MY_YOUTUBE_RECOMMENDATION_JSON_FILENAME', 'my-yt-rec.json' );
 }
 
+// Load the plugin's translated strings.
+load_plugin_textdomain( MY_YOUTUBE_RECOMMENDATION_PLUGIN_SLUG, false, MY_YOUTUBE_RECOMMENDATION_PLUGIN_SLUG.'/languages/' );
+
 // Dependencies
 require_once MY_YOUTUBE_RECOMMENDATION_PLUGIN_DIR . 'includes/class-my-youtube-recommendation.php';
 require_once MY_YOUTUBE_RECOMMENDATION_PLUGIN_DIR . 'includes/class-my-youtube-recommendation-json.php';

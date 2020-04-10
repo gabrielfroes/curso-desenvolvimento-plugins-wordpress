@@ -49,7 +49,7 @@ class My_Youtube_Recommendation {
 			$container_id   = 'my-yt-rec-container';
 			if ($custom_css != "") 
 				$content .= "<style>$custom_css</style>";
-			$content        .= "<div id='$container_id'>".__('Loading...')."</div>";
+			$content        .= "<div id='$container_id'>".__('Loading...' , 'my-youtube-recommendation')."</div>";
 			$script         = "<script>
 								MyYoutubeRecommendation.listCallbacks.push({
 								container: '$container_id',

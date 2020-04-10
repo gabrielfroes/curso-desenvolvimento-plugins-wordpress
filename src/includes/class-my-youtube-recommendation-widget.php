@@ -8,7 +8,7 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Widget' ) ) {
         public function __construct() {
             parent::__construct(
                 'my_youtube_recommendation_widget',
-                __('My Youtube Recommendation'),
+                __('My Youtube Recommendation' , 'my-youtube-recommendation'),
                 array(
                     'customize_selective_refresh' => true,
                 )
@@ -25,7 +25,7 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Widget' ) ) {
         public function form( $instance ) {	
             // Set widget defaults
             $defaults = array(
-                'title'         => __('Last Videos'),
+                'title'         => __('Last Videos' , 'my-youtube-recommendation'),
                 'layout'        => 'grid',
                 'limit'         => '3'
             );
@@ -35,23 +35,23 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Widget' ) ) {
 
             <?php // Title ?>
             <p>
-                <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php echo __('Title'); ?></label>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php echo __('Title' , 'my-youtube-recommendation'); ?>:</label>
                 <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
             </p>
             <?php ?>
 
             <?php // Layout ?>
             <p>
-                <label for="<?php echo esc_attr( $this->get_field_id( 'layout' ) ); ?>"><?php echo __('Layout:'); ?></label>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'layout' ) ); ?>"><?php echo __('Layout' , 'my-youtube-recommendation'); ?>:</label>
                 <select class="postform" id="<?php echo esc_attr( $this->get_field_id( 'layout' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'layout' ) ); ?>">
-                <option class="level-0" value="grid" <?php echo (esc_attr( $layout ) == 'grid') ? 'selected="selected"': '' ?>>Grid</option>
-                <option class="level-0" value="list" <?php echo (esc_attr( $layout ) == 'list') ? 'selected="selected"': '' ?>>List</option>
+                <option class="level-0" value="grid" <?php echo (esc_attr( $layout ) == 'grid') ? 'selected="selected"': '' ?>><?php echo __('Grid' , 'my-youtube-recommendation') ?></option>
+                <option class="level-0" value="list" <?php echo (esc_attr( $layout ) == 'list') ? 'selected="selected"': '' ?>><?php echo __('List' , 'my-youtube-recommendation') ?></option>
                 </select>
             </p>
 
             <?php // Limit ?>
             <p>
-                <label for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>"><?php echo __('Videos to show:'); ?></label>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>"><?php echo __('Videos to show' , 'my-youtube-recommendation'); ?>:</label>
                 <input class="tiny-text" id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" type="number" step="1" min="1" max="15" value="<?php echo esc_attr( $limit ); ?>" size="3" /> (15 max)
             </p>
 
@@ -85,7 +85,7 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Widget' ) ) {
             ?>
             <div class="widget-text wp_widget_plugin_box">
                 <?php echo ( $title ) ? $before_title . $title . $after_title : ''; ?>
-                <div id='<?php echo $widget_unique_id ?>'><?php echo __('Loading...') ?></div>
+                <div id='<?php echo $widget_unique_id ?>'><?php echo __('Loading...' , 'my-youtube-recommendation') ?></div>
             </div>
             <script>
                 MyYoutubeRecommendation.listCallbacks.push({

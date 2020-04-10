@@ -19,7 +19,7 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Shortcode' ) ) {
             $language 	= get_locale();
 
             $content    = "
-                        <div id='$shortcode_unique_id'>" . __('Loading...') . "</div>
+                        <div id='$shortcode_unique_id'>" . __('Loading...' , 'my-youtube-recommendation') . "</div>
                         <script>
                         MyYoutubeRecommendation.listCallbacks.push({
                             container: '$shortcode_unique_id',
