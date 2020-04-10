@@ -95,3 +95,6 @@ msgstr "hora será o tempo de expiração dos dados armazenados em cache"
 
 msgid "Layout"
 msgstr "Leiaute"
+
+msgid "Fill with your Youtube channel ID"
+msgstr "Preencha com o ID do seu canal no Youtube"

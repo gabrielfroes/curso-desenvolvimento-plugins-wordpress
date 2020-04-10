@@ -66,7 +66,7 @@ if ( ! class_exists( 'My_Youtube_Recommendation_Admin' ) ) {
                 <div class="error notice">
                 <?php echo $channel_id ?>
                     <p><strong><?php echo __( 'My Youtube Recommendation', 'my-youtube-recommendation' ); ?></strong></p>
-                    <p><?php echo __( 'Fill with your Youtube channel ID!', 'my-youtube-recommendation' ); ?></p>
+                    <p><?php echo __( 'Fill with your Youtube channel ID', 'my-youtube-recommendation' ); ?></p>
                 </div>
                 <?php
             }
